@@ -11,27 +11,27 @@
 </head>
 
 <body>
+  <canvas id="particles-canvas"></canvas>
   <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
-    <div class="container-fluid">
+    <div class="container">
+      <div class="navbar-nav nav-left">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#top">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="">CV</a>
+        </li>
+      </div>
       <a class="navbar-brand logo-mc">
         <img src="images/mclogo.png" alt="mclogo" width="40" height="30">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-lg-auto">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#top">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">CV</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#mid-activities">Activities</a>
-          </li>
-        </ul>
+      <div class="navbar-nav nav-right">
+        <li class="nav-item">
+          <a class="nav-link" href="#mid-activities">Activities</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/mcanillas" target="_blank" rel="noopener noreferrer">Contact</a>
+        </li>
       </div>
     </div>
   </nav>
@@ -100,9 +100,98 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
-</body>
+  <script>
+    // Particle animation
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
 
-</html>
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    const particleCount = 25;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 220 + 80;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.opacity = Math.random() * 0.08 + 0.10;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+        gradient.addColorStop(0, `rgba(40, 120, 140, ${this.opacity})`);
+        gradient.addColorStop(1, `rgba(40, 120, 140, 0)`);
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    init();
+    animate();
+
+    // Pointer movement for gradient
+    const root = document.documentElement;
+    const updateGlow = (event) => {
+      const x = (event.clientX / window.innerWidth) * 100;
+      const y = (event.clientY / window.innerHeight) * 100;
+      root.style.setProperty('--pointer-x', `${x}%`);
+      root.style.setProperty('--pointer-y', `${y}%`);
+    };
+
+    let ticking = false;
+
+    window.addEventListener('pointermove', (event) => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateGlow(event);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    window.addEventListener('pointerleave', () => {
+      root.style.setProperty('--pointer-x', '50%');
+      root.style.setProperty('--pointer-y', '50%');
+    });
+  </script>
 </body>
 
 </html>
