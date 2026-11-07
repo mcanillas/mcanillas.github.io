@@ -4,193 +4,320 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>mcanillas-personal-page</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <title>Marc Canillas — Front-End Developer</title>
+  <meta name="description" content="Portfolio of Marc Angelo Cabrera Canillas, an aspiring front-end developer.">
+  <link rel="icon" href="images/mclogo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script>
+    // Apply saved theme before paint to avoid a flash
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.dataset.theme = saved;
+    } catch (e) { }
+  </script>
 </head>
 
 <body>
-  <canvas id="particles-canvas"></canvas>
-  <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
-    <div class="container">
-      <div class="navbar-nav nav-left">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#top">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">CV</a>
-        </li>
-      </div>
-      <a class="navbar-brand logo-mc">
-        <img src="images/mclogo.png" alt="mclogo" width="40" height="30">
-      </a>
-      <div class="navbar-nav nav-right">
-        <li class="nav-item">
-          <a class="nav-link" href="#mid-activities">Activities</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/mcanillas" target="_blank" rel="noopener noreferrer">Contact</a>
-        </li>
-      </div>
-    </div>
-  </nav>
-  <section class="main-content text-white">
+  <header class="site-header">
+    <a href="#top" class="logo" aria-label="Back to top">
+      <img src="images/mclogo.png" alt="MC logo" width="36" height="36">
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <!-- Put your CV file in this folder named cv.pdf (or change the href below) -->
+      <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme">
+        <span class="theme-dot"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
     <section class="hero" id="top">
-      <div class="hero-overlay"></div>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-8">
-            <h1 class="display-5 name-title">MARC ANGELO CABRERA CANILLAS</h1>
-            <p class="lead">An aspiring Front-End Developer</p>
-          </div>
+      <p class="label hero-label">
+        <span class="line-in" style="--d: 0">Portfolio — 2026</span>
+      </p>
+      <h1 class="hero-title">
+        <span class="line"><span class="line-in" style="--d: 1">Marc Angelo</span></span>
+        <span class="line"><span class="line-in" style="--d: 2"><em>Canillas</em></span></span>
+      </h1>
+      <div class="hero-foot">
+        <p class="hero-intro line-in" style="--d: 3">
+          An aspiring front-end developer crafting clean,
+          thoughtful and responsive websites.
+        </p>
+        <a href="#projects" class="scroll-cue label line-in" style="--d: 4">Scroll ↓</a>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section" id="projects">
+      <div class="section-head reveal">
+        <p class="label">Selected projects</p>
+        <p class="label">04 projects</p>
+      </div>
+
+      <ol class="work-list">
+        <li class="work-item reveal">
+          <a href="https://mcanillas.github.io/device-specs/" target="_blank" rel="noopener noreferrer"
+            data-img="images/rtx5.png">
+            <span class="work-num label">01</span>
+            <span class="work-title">Device Specification Showcase</span>
+            <img class="work-thumb" src="images/rtx5.png" alt="" loading="lazy">
+            <span class="work-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="work-item reveal">
+          <a href="https://mcanillas.github.io/showcase-mayon/" target="_blank" rel="noopener noreferrer"
+            data-img="images/mayon.jpg">
+            <span class="work-num label">02</span>
+            <span class="work-title">Mayon Showcase</span>
+            <img class="work-thumb" src="images/mayon.jpg" alt="" loading="lazy">
+            <span class="work-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="work-item reveal">
+          <a href="https://mcanillas.github.io/gallery-showcase/" target="_blank" rel="noopener noreferrer"
+            data-img="images/initialD.png">
+            <span class="work-num label">03</span>
+            <span class="work-title">Initial D Car Gallery</span>
+            <img class="work-thumb" src="images/initialD.png" alt="" loading="lazy">
+            <span class="work-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="work-item reveal">
+          <a href="https://mcanillas.github.io/apicall-gallery/" target="_blank" rel="noopener noreferrer"
+            data-img="images/bobs-logo.png">
+            <span class="work-num label">04</span>
+            <span class="work-title">Bob's Burgers API Gallery</span>
+            <img class="work-thumb" src="images/bobs-logo.png" alt="" loading="lazy">
+            <span class="work-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ol>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+      <div class="section-head reveal">
+        <p class="label">About</p>
+      </div>
+      <div class="about-grid">
+        <figure class="about-photo">
+          <img src="images/mpic.png" alt="Portrait of Marc Canillas" loading="lazy">
+        </figure>
+        <div class="about-text reveal">
+          <p class="about-lead">
+            I'm Marc — a developer who cares about the <em>details</em> that make a website feel right.
+          </p>
+          <p>
+            I'm learning front-end development by building real projects: from product showcases
+            to image galleries powered by public APIs. Each one is a step toward writing cleaner,
+            faster and more accessible interfaces.
+          </p>
+          <ul class="skills label">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Bootstrap</li>
+            <li>REST APIs</li>
+            <li>Git &amp; GitHub</li>
+          </ul>
         </div>
       </div>
     </section>
-  </section>
-  <section id="mid-activities">
-    <h3 class="display-6 activities-title">Activities</h3>
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="card h-100">
-          <img src="images/rtx5.png" class="card-img-top" alt="Device Specs website preview"
-            style="height: 200px; object-fit: cover;">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Device Specification Showcase</h5>
-            <p class="card-text">Activity #1</p>
-            <a href="https://mcanillas.github.io/device-specs/" class="btn btn-primary mt-auto">Visit Website</a>
-          </div>
-        </div>
+
+    <!-- Contact -->
+    <section class="section contact" id="contact">
+      <div class="section-head reveal">
+        <p class="label">Contact</p>
       </div>
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="card h-100">
-          <img src="images/mayon.jpg" class="card-img-top" alt="Mayon website preview"
-            style="height: 200px; object-fit: cover;">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Mayon Showcase Project</h5>
-            <p class="card-text">Activity #2</p>
-            <a href="https://mcanillas.github.io/showcase-mayon/" class="btn btn-primary mt-auto">Visit Website</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="card h-100">
-          <img src="images/initialD.png" class="card-img-top" alt="Initial-D Gallery website preview"
-            style="height: 200px; object-fit: cover;">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Initial D Car Gallery</h5>
-            <p class="card-text">Activity #3</p>
-            <a href="https://mcanillas.github.io/gallery-showcase/" class="btn btn-primary mt-auto">Visit Website</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="card h-100">
-          <img src="images/bobs-logo.png" class="card-img-top" alt="Bob's Burgers Gallery website preview"
-            style="height: 200px; object-fit: cover;">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Bob's Burgers API call Gallery</h5>
-            <p class="card-text">Activity #4</p>
-            <a href="https://mcanillas.github.io/apicall-gallery/" class="btn btn-primary mt-auto">Visit Website</a>
-          </div>
-        </div>
-      </div>
+      <p class="contact-kicker reveal">Have a project in mind?</p>
+      <button class="contact-link reveal" type="button" aria-haspopup="dialog" aria-controls="contact-dialog">
+        Let's <em>talk</em> <span aria-hidden="true">↗</span>
+      </button>
+    </section>
+  </main>
+
+  <!-- Contact pop-up -->
+  <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-dialog-title">
+    <div class="dialog-head">
+      <h2 id="contact-dialog-title">Let's <em>talk</em></h2>
+      <button class="dialog-close" type="button" aria-label="Close">×</button>
     </div>
-  </section>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
+    <p class="dialog-sub">Pick whichever works best for you.</p>
+    <ul class="contact-options">
+      <li>
+        <a href="https://github.com/mcanillas" target="_blank" rel="noopener noreferrer">
+          <span class="label">GitHub</span>
+          <span class="option-value">@mcanillas</span>
+          <span class="option-arrow" aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li>
+        <!-- TODO: replace YOUR_INSTAGRAM with your Instagram username -->
+        <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" rel="noopener noreferrer">
+          <span class="label">Instagram</span>
+          <span class="option-value">@YOUR_INSTAGRAM</span>
+          <span class="option-arrow" aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li>
+        <!-- TODO: replace you@example.com with your email (in both places) -->
+        <a href="mailto:you@example.com">
+          <span class="label">Email</span>
+          <span class="option-value">you@example.com</span>
+          <span class="option-arrow" aria-hidden="true">↗</span>
+        </a>
+        <button class="copy-email label" type="button" data-email="you@example.com">Copy</button>
+      </li>
+    </ul>
+  </dialog>
+
+  <footer class="site-footer label">
+    <span>© 2026 Marc Canillas</span>
+    <a href="https://github.com/mcanillas" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <!-- Floating preview that follows the cursor over the work list -->
+  <div class="preview" aria-hidden="true">
+    <div class="preview-card">
+      <img class="preview-fallback" alt="">
+      <div class="preview-frames"></div>
+    </div>
+  </div>
+
   <script>
-    // Particle animation
-    const canvas = document.getElementById('particles-canvas');
-    const ctx = canvas.getContext('2d');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-    const particleCount = 25;
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 220 + 80;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-        this.opacity = Math.random() * 0.08 + 0.10;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x > canvas.width) this.x = 0;
-        if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        if (this.y < 0) this.y = canvas.height;
-      }
-
-      draw() {
-        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-        gradient.addColorStop(0, `rgba(40, 120, 140, ${this.opacity})`);
-        gradient.addColorStop(1, `rgba(40, 120, 140, 0)`);
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function init() {
-      particles = [];
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
-      requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-
-    init();
-    animate();
-
-    // Pointer movement for gradient
+    // Theme toggle
     const root = document.documentElement;
-    const updateGlow = (event) => {
-      const x = (event.clientX / window.innerWidth) * 100;
-      const y = (event.clientY / window.innerHeight) * 100;
-      root.style.setProperty('--pointer-x', `${x}%`);
-      root.style.setProperty('--pointer-y', `${y}%`);
-    };
+    document.querySelector('.theme-toggle').addEventListener('click', () => {
+      const isLight = root.dataset.theme
+        ? root.dataset.theme === 'light'
+        : window.matchMedia('(prefers-color-scheme: light)').matches;
+      const next = isLight ? 'dark' : 'light';
+      root.dataset.theme = next;
+      try { localStorage.setItem('theme', next); } catch (e) { }
+    });
 
-    let ticking = false;
-
-    window.addEventListener('pointermove', (event) => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateGlow(event);
-          ticking = false;
-        });
-        ticking = true;
+    // Contact pop-up
+    const dialog = document.getElementById('contact-dialog');
+    document.querySelector('.contact-link').addEventListener('click', () => dialog.showModal());
+    dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
+    // Close when clicking the dimmed area outside the box
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    const copyBtn = dialog.querySelector('.copy-email');
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(copyBtn.dataset.email);
+        copyBtn.textContent = 'Copied';
+      } catch (e) {
+        copyBtn.textContent = 'Failed';
       }
+      setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1600);
     });
 
-    window.addEventListener('pointerleave', () => {
-      root.style.setProperty('--pointer-x', '50%');
-      root.style.setProperty('--pointer-y', '50%');
-    });
+    // Reveal sections as they scroll into view
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !reduceMotion) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach((el) => io.observe(el));
+    } else {
+      revealEls.forEach((el) => el.classList.add('is-visible'));
+    }
+
+    // Hover preview that trails the cursor (pointer devices only)
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (canHover) {
+      const preview = document.querySelector('.preview');
+      const previewCard = preview.querySelector('.preview-card');
+      const previewImg = preview.querySelector('.preview-fallback');
+      const framesBox = preview.querySelector('.preview-frames');
+      const links = document.querySelectorAll('.work-item a');
+      let targetX = 0, targetY = 0, x = 0, y = 0, running = false;
+
+      // Live mini-previews: each site loads in a desktop-sized iframe that is
+      // scaled down to fit the card. The picture shows until the site has loaded.
+      const SITE_WIDTH = 1280;
+      const frames = new Map();
+
+      const fitFrames = () => {
+        const scale = previewCard.clientWidth / SITE_WIDTH;
+        framesBox.style.setProperty('--scale', scale);
+      };
+
+      const loadFrames = () => {
+        if (frames.size) return;
+        links.forEach((link) => {
+          const frame = document.createElement('iframe');
+          frame.src = link.href;
+          frame.title = 'Preview';
+          frame.tabIndex = -1;
+          frame.setAttribute('scrolling', 'no');
+          frame.addEventListener('load', () => frame.classList.add('is-loaded'));
+          framesBox.appendChild(frame);
+          frames.set(link.href, frame);
+        });
+        fitFrames();
+      };
+
+      window.addEventListener('resize', fitFrames);
+      // Start loading the sites as soon as the visitor gets near the project list
+      document.querySelector('.work-list').addEventListener('mouseenter', loadFrames, { once: true });
+
+      const tick = () => {
+        const ease = reduceMotion ? 1 : 0.15;
+        x += (targetX - x) * ease;
+        y += (targetY - y) * ease;
+        preview.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+        if (Math.abs(targetX - x) > 0.1 || Math.abs(targetY - y) > 0.1) {
+          requestAnimationFrame(tick);
+        } else {
+          running = false;
+        }
+      };
+
+      links.forEach((link) => {
+        link.addEventListener('mouseenter', (e) => {
+          loadFrames();
+          previewImg.src = link.dataset.img;
+          frames.forEach((frame, href) => frame.classList.toggle('is-current', href === link.href));
+          if (!preview.classList.contains('is-active')) {
+            x = targetX = e.clientX;
+            y = targetY = e.clientY;
+          }
+          preview.classList.add('is-active');
+        });
+        link.addEventListener('mouseleave', () => preview.classList.remove('is-active'));
+        link.addEventListener('mousemove', (e) => {
+          targetX = e.clientX;
+          targetY = e.clientY;
+          if (!running) {
+            running = true;
+            requestAnimationFrame(tick);
+          }
+        });
+      });
+    }
   </script>
 </body>
 
