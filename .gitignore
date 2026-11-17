@@ -1,0 +1,4 @@
+# Raw Blender renders (large PNG sequences). The site only uses the
+# compressed WebP frames made from them (e.g. images/laptop/).
+images/render/
+images/render-*/
