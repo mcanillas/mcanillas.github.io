@@ -10,16 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script>
-    // Apply saved theme before paint to avoid a flash
-    try {
-      const saved = localStorage.getItem('theme');
-      if (saved) document.documentElement.dataset.theme = saved;
-    } catch (e) { }
-  </script>
 </head>
 
 <body>
@@ -29,13 +22,9 @@
     </a>
     <nav class="site-nav" aria-label="Main">
       <a href="#projects">Projects</a>
-      <a href="#about">About</a>
       <a href="#contact">Contact</a>
       <!-- Put your CV file in this folder named cv.pdf (or change the href below) -->
-      <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
-      <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme">
-        <span class="theme-dot"></span>
-      </button>
+      <a href="cv.pdf" class="nav-cta chrome-accent" target="_blank" rel="noopener noreferrer">CV</a>
     </nav>
   </header>
 
@@ -43,72 +32,117 @@
     <!-- Hero -->
     <section class="hero" id="top">
       <p class="label hero-label">
-        <span class="line-in" style="--d: 0">Portfolio — 2026</span>
+        <span class="line-in chrome-accent" style="--d: 0">Portfolio — 2026</span>
       </p>
       <h1 class="hero-title">
-        <span class="line"><span class="line-in" style="--d: 1">Marc Angelo</span></span>
-        <span class="line"><span class="line-in" style="--d: 2"><em>Canillas</em></span></span>
+        <span class="line"><span class="line-in chrome-heading chrome-sweep" style="--d: 1">Marc Angelo</span></span>
+        <span class="line"><span class="line-in chrome-heading chrome-sweep" style="--d: 2"><em>Canillas</em></span></span>
       </h1>
+      <!-- Reserved for your photo: it stands in the spotlight on the right.
+           To add it, put an image inside, e.g.
+           <img src="images/hero-photo.png" alt="Marc Canillas"> -->
+      <div class="hero-visual"></div>
       <div class="hero-foot">
         <p class="hero-intro line-in" style="--d: 3">
           An aspiring front-end developer crafting clean,
           thoughtful and responsive websites.
         </p>
-        <a href="#projects" class="scroll-cue label line-in" style="--d: 4">Scroll ↓</a>
+        <a href="#projects" class="scroll-cue label line-in chrome-accent" style="--d: 4">Scroll ↓</a>
       </div>
     </section>
 
-    <!-- Projects -->
-    <section class="section" id="projects">
-      <div class="section-head reveal">
-        <p class="label">Selected projects</p>
-        <p class="label">04 projects</p>
-      </div>
+    <!-- Projects: scroll-driven laptop showcase (js/showcase.js)
+         Laptop frames:  images/laptop/lg/001-252.webp (desktop)
+                         images/laptop/sm/001-252.webp (phones)
+         Screen images:  images/screens/*.webp (1280x800, 16:10)
+         To add a project: add a .screen-shot image AND a matching
+         .project-panel, in the same order. -->
+    <section class="showcase" id="projects" aria-label="Selected projects">
+      <div class="showcase-pin">
 
-      <ol class="work-list">
-        <li class="work-item reveal">
-          <a href="https://mcanillas.github.io/device-specs/" target="_blank" rel="noopener noreferrer"
-            data-img="images/rtx5.png">
-            <span class="work-num label">01</span>
-            <span class="work-title">Device Specification Showcase</span>
-            <img class="work-thumb" src="images/rtx5.png" alt="" loading="lazy">
-            <span class="work-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li class="work-item reveal">
-          <a href="https://mcanillas.github.io/showcase-mayon/" target="_blank" rel="noopener noreferrer"
-            data-img="images/mayon.jpg">
-            <span class="work-num label">02</span>
-            <span class="work-title">Mayon Showcase</span>
-            <img class="work-thumb" src="images/mayon.jpg" alt="" loading="lazy">
-            <span class="work-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li class="work-item reveal">
-          <a href="https://mcanillas.github.io/gallery-showcase/" target="_blank" rel="noopener noreferrer"
-            data-img="images/initialD.png">
-            <span class="work-num label">03</span>
-            <span class="work-title">Initial D Car Gallery</span>
-            <img class="work-thumb" src="images/initialD.png" alt="" loading="lazy">
-            <span class="work-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li class="work-item reveal">
-          <a href="https://mcanillas.github.io/apicall-gallery/" target="_blank" rel="noopener noreferrer"
-            data-img="images/bobs-logo.png">
-            <span class="work-num label">04</span>
-            <span class="work-title">Bob's Burgers API Gallery</span>
-            <img class="work-thumb" src="images/bobs-logo.png" alt="" loading="lazy">
-            <span class="work-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-      </ol>
+        <div class="showcase-intro">
+          <p class="label chrome-accent">Selected work — 2023/26</p>
+          <h2 class="showcase-intro-title"><span class="chrome-heading">Projects</span></h2>
+          <p class="showcase-intro-hint label">Scroll to open</p>
+        </div>
+
+        <div class="section-head showcase-head">
+          <p class="label chrome-accent">Selected projects</p>
+          <p class="label"><span class="showcase-count chrome-accent">01</span> / 04</p>
+          <span class="showcase-progress" aria-hidden="true"></span>
+        </div>
+
+        <!-- The render and the HTML screen share one coordinate space -->
+        <div class="showcase-stage" aria-hidden="true">
+          <div class="showcase-glow"></div>
+          <!-- Screen light: one tint per project (R G B), same order as the
+               screen shots; cross-fades with them -->
+          <div class="showcase-ambient">
+            <span style="--c: 118 185 0"></span>
+            <span style="--c: 110 200 185"></span>
+            <span style="--c: 150 130 255"></span>
+            <span style="--c: 245 196 60"></span>
+          </div>
+          <canvas class="showcase-canvas"></canvas>
+          <div class="screen">
+            <img class="screen-shot" src="images/screens/device-specs.webp" alt="" decoding="async" loading="lazy">
+            <img class="screen-shot" src="images/screens/showcase-mayon.webp" alt="" decoding="async" loading="lazy">
+            <img class="screen-shot" src="images/screens/gallery-showcase.webp" alt="" decoding="async" loading="lazy">
+            <img class="screen-shot" src="images/screens/apicall-gallery.webp" alt="" decoding="async" loading="lazy">
+            <div class="screen-glare"></div>
+          </div>
+        </div>
+
+        <div class="showcase-info">
+          <article class="project-panel">
+            <p class="label project-meta"><span class="chrome-accent">01</span><span>Product landing page</span></p>
+            <h3 class="project-title"><span class="chrome-heading">Device Specification Showcase</span></h3>
+            <p class="project-desc">A product page for the NVIDIA RTX 5090, with a cinematic hero, a responsive
+              navbar and spec sections. My first full Bootstrap layout.</p>
+            <ul class="project-tech label">
+              <li>HTML</li><li>CSS</li><li>Bootstrap 5</li>
+            </ul>
+            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/device-specs/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project-panel">
+            <p class="label project-meta"><span class="chrome-accent">02</span><span>Destination showcase</span></p>
+            <h3 class="project-title"><span class="chrome-heading">Mayon Showcase</span></h3>
+            <p class="project-desc">A travel showcase for Mayon Volcano, the world's most perfect cone: its history
+              and legend, a filterable gallery, carousels and a night view.</p>
+            <ul class="project-tech label">
+              <li>HTML</li><li>CSS</li><li>Bootstrap 5</li><li>JavaScript</li>
+            </ul>
+            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/showcase-mayon/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project-panel">
+            <p class="label project-meta"><span class="chrome-accent">03</span><span>Image gallery</span></p>
+            <h3 class="project-title"><span class="chrome-heading">Initial D Car Gallery</span></h3>
+            <p class="project-desc">A retro car gallery with an arcade-style intro and a video hero with sound,
+              where Bootstrap cards open each car in a modal.</p>
+            <ul class="project-tech label">
+              <li>HTML</li><li>CSS</li><li>Bootstrap 5</li><li>JavaScript</li>
+            </ul>
+            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/gallery-showcase/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="project-panel">
+            <p class="label project-meta"><span class="chrome-accent">04</span><span>API-driven web app</span></p>
+            <h3 class="project-title"><span class="chrome-heading">Bob's Burgers API Gallery</span></h3>
+            <p class="project-desc">A character booth that fetches all 50 Bob's Burgers characters live from a
+              public API, with zoomable cards and a 3D burger built in Three.js.</p>
+            <ul class="project-tech label">
+              <li>JavaScript</li><li>Fetch API</li><li>Bootstrap 5</li><li>Three.js</li>
+            </ul>
+            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/apicall-gallery/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+
+      </div>
     </section>
 
     <!-- About -->
     <section class="section" id="about">
       <div class="section-head reveal">
-        <p class="label">About</p>
+        <p class="label chrome-accent">About</p>
       </div>
       <div class="about-grid">
         <figure class="about-photo">
@@ -116,7 +150,7 @@
         </figure>
         <div class="about-text reveal">
           <p class="about-lead">
-            I'm Marc — a developer who cares about the <em>details</em> that make a website feel right.
+            I'm Marc — a developer who cares about the details that make a website feel right.
           </p>
           <p>
             I'm learning front-end development by building real projects: from product showcases
@@ -138,11 +172,11 @@
     <!-- Contact -->
     <section class="section contact" id="contact">
       <div class="section-head reveal">
-        <p class="label">Contact</p>
+        <p class="label chrome-accent">Contact</p>
       </div>
       <p class="contact-kicker reveal">Have a project in mind?</p>
-      <button class="contact-link reveal" type="button" aria-haspopup="dialog" aria-controls="contact-dialog">
-        Let's <em>talk</em> <span aria-hidden="true">↗</span>
+      <button class="contact-link reveal chrome-heading chrome-sweep" type="button" aria-haspopup="dialog" aria-controls="contact-dialog">
+        Let's <em>talk</em> <span class="chrome-heading" aria-hidden="true">↗</span>
       </button>
     </section>
   </main>
@@ -150,8 +184,8 @@
   <!-- Contact pop-up -->
   <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-dialog-title">
     <div class="dialog-head">
-      <h2 id="contact-dialog-title">Let's <em>talk</em></h2>
-      <button class="dialog-close" type="button" aria-label="Close">×</button>
+      <h2 id="contact-dialog-title" class="chrome-heading">Let's <em>talk</em></h2>
+      <button class="dialog-close chrome-rim" type="button" aria-label="Close">×</button>
     </div>
     <p class="dialog-sub">Pick whichever works best for you.</p>
     <ul class="contact-options">
@@ -159,7 +193,7 @@
         <a href="https://github.com/mcanillas" target="_blank" rel="noopener noreferrer">
           <span class="label">GitHub</span>
           <span class="option-value">@mcanillas</span>
-          <span class="option-arrow" aria-hidden="true">↗</span>
+          <span class="option-arrow chrome-accent" aria-hidden="true">↗</span>
         </a>
       </li>
       <li>
@@ -167,7 +201,7 @@
         <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" rel="noopener noreferrer">
           <span class="label">Instagram</span>
           <span class="option-value">@YOUR_INSTAGRAM</span>
-          <span class="option-arrow" aria-hidden="true">↗</span>
+          <span class="option-arrow chrome-accent" aria-hidden="true">↗</span>
         </a>
       </li>
       <li>
@@ -175,9 +209,9 @@
         <a href="mailto:you@example.com">
           <span class="label">Email</span>
           <span class="option-value">you@example.com</span>
-          <span class="option-arrow" aria-hidden="true">↗</span>
+          <span class="option-arrow chrome-accent" aria-hidden="true">↗</span>
         </a>
-        <button class="copy-email label" type="button" data-email="you@example.com">Copy</button>
+        <button class="copy-email label chrome-rim" type="button" data-email="you@example.com">Copy</button>
       </li>
     </ul>
   </dialog>
@@ -188,31 +222,196 @@
     <a href="#top">Back to top ↑</a>
   </footer>
 
-  <!-- Floating preview that follows the cursor over the work list -->
-  <div class="preview" aria-hidden="true">
-    <div class="preview-card">
-      <img class="preview-fallback" alt="">
-      <div class="preview-frames"></div>
-    </div>
-  </div>
-
   <script>
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Theme toggle
-    const root = document.documentElement;
-    document.querySelector('.theme-toggle').addEventListener('click', () => {
-      const isLight = root.dataset.theme
-        ? root.dataset.theme === 'light'
-        : window.matchMedia('(prefers-color-scheme: light)').matches;
-      const next = isLight ? 'dark' : 'light';
-      root.dataset.theme = next;
-      try { localStorage.setItem('theme', next); } catch (e) { }
-    });
+    // Header gains a graphite glass backdrop once the page scrolls
+    const siteHeader = document.querySelector('.site-header');
+    const updateHeader = () => siteHeader.classList.toggle('is-scrolled', window.scrollY > 8);
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+
+    // ===== Interactive chrome =====
+    // 1. Sparkles blink at random spots on the chrome letters.
+    // 2. On hover, the light reflection follows the cursor and sparkles
+    //    flash on the letters under it.
+    (() => {
+      // ---- Sparkle settings: tweak these to taste ----
+      const SPARKLE = {
+        minDelay: 5500,     // shortest wait between random sparkles (ms)
+        maxDelay: 10500,     // longest wait between random sparkles (ms)
+        doubleChance: 0.1,  // chance two sparkles appear at once (0 to 1)
+        hoverGap: 400,      // minimum time between sparkles while hovering (ms)
+        hoverChance: 0.01,   // chance a hover movement makes a sparkle (0 to 1)
+      };
+
+      // Every chrome heading gets the cursor-following shine; only the name
+      // in the hero gets sparkles
+      const headings = [...document.querySelectorAll('.chrome-heading')];
+      const sparkleHeadings = headings.filter((el) => el.closest('.hero-title'));
+      const rand = (min, max) => min + Math.random() * (max - min);
+
+      // Every non-space character of a heading, so sparkles land on letters
+      const charCache = new Map();
+      const charsOf = (el) => {
+        if (!charCache.has(el)) {
+          const list = [];
+          const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+          while (walker.nextNode()) {
+            const node = walker.currentNode;
+            for (let i = 0; i < node.length; i++) {
+              if (node.data[i].trim()) list.push([node, i]);
+            }
+          }
+          charCache.set(el, list);
+        }
+        return charCache.get(el);
+      };
+
+      const charRect = (node, i) => {
+        const range = document.createRange();
+        range.setStart(node, i);
+        range.setEnd(node, i + 1);
+        return range.getBoundingClientRect();
+      };
+
+      // Sparkles go in the open dialog when the heading lives there,
+      // otherwise in the page
+      const spawnSparkle = (el, x, y) => {
+        const host = el.closest('dialog') || document.body;
+        let left = x + window.scrollX, top = y + window.scrollY;
+        if (host !== document.body) {
+          const r = host.getBoundingClientRect();
+          left = x - r.left - host.clientLeft;
+          top = y - r.top - host.clientTop;
+        }
+        const fontSize = parseFloat(getComputedStyle(el).fontSize);
+        const s = document.createElement('span');
+        s.className = 'sparkle';
+        s.style.left = left + 'px';
+        s.style.top = top + 'px';
+        s.style.setProperty('--size', Math.max(14, fontSize * rand(0.18, 0.34)) + 'px');
+        s.style.setProperty('--dur', rand(0.7, 1.1) + 's');
+        s.addEventListener('animationend', () => s.remove());
+        host.appendChild(s);
+      };
+
+      // Somewhere on the upper part of a glyph, where chrome catches light
+      const sparkleOnChar = (el, node, i) => {
+        const r = charRect(node, i);
+        if (!r.width) return;
+        spawnSparkle(el, r.left + r.width * rand(0.1, 0.9), r.top + r.height * rand(0.18, 0.55));
+      };
+
+      const sparkleRandom = (el) => {
+        const chars = charsOf(el);
+        if (chars.length) sparkleOnChar(el, ...chars[Math.floor(Math.random() * chars.length)]);
+      };
+
+      const isVisible = (el) => {
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.bottom > 0 && r.top < window.innerHeight
+          && getComputedStyle(el.closest('.reveal') || el).opacity > 0.5
+          // skip headings that are faded out (e.g. inactive showcase projects)
+          && (!el.checkVisibility || el.checkVisibility({ opacityProperty: true, visibilityProperty: true }));
+      };
+
+      // --- Random blinking sparkles ---
+      if (!reduceMotion) {
+        const blinkLoop = () => {
+          if (!document.hidden) {
+            const visible = sparkleHeadings.filter(isVisible);
+            if (visible.length) {
+              const count = Math.random() < SPARKLE.doubleChance ? 2 : 1;
+              for (let n = 0; n < count; n++) {
+                sparkleRandom(visible[Math.floor(Math.random() * visible.length)]);
+              }
+            }
+          }
+          setTimeout(blinkLoop, rand(SPARKLE.minDelay, SPARKLE.maxDelay));
+        };
+        setTimeout(blinkLoop, 1600);
+      }
+
+      // --- Hover: reflection follows the cursor, sparkles under it ---
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+      const charAtPoint = (x, y) => {
+        if (document.caretPositionFromPoint) {
+          const p = document.caretPositionFromPoint(x, y);
+          return p && [p.offsetNode, p.offset];
+        }
+        if (document.caretRangeFromPoint) {
+          const r = document.caretRangeFromPoint(x, y);
+          return r && [r.startContainer, r.startOffset];
+        }
+        return null;
+      };
+
+      headings.forEach((el) => {
+        // Hovering the whole link/button or project title counts, not just
+        // the letters (so the gap between wrapped lines works too)
+        const trigger = el.closest('a, button, .project-title') || el;
+        let current = null, target = 0, frame = 0, leaving = false, lastSpark = 0;
+
+        // Glint layer is 260% wide: cursor fraction f -> background-position
+        const posFor = (f) => ((1.3 - f) / 1.6) * 100;
+
+        const step = () => {
+          current += (target - current) * 0.18;
+          el.style.setProperty('--glint-pos', current.toFixed(2) + '%');
+          if (Math.abs(target - current) > 0.2) {
+            frame = requestAnimationFrame(step);
+          } else {
+            frame = 0;
+            // Glint has slid off the edge: hand back to the CSS sweep
+            if (leaving) { el.style.removeProperty('--glint-pos'); current = null; }
+          }
+        };
+        const run = () => { if (!frame) frame = requestAnimationFrame(step); };
+
+        trigger.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          const f = Math.min(1.2, Math.max(-0.2, (e.clientX - r.left) / r.width));
+          if (current === null) current = posFor(f < 0.5 ? -0.3 : 1.3);
+          leaving = false;
+          target = posFor(f);
+          run();
+
+          if (reduceMotion || !sparkleHeadings.includes(el)) return;
+          const now = performance.now();
+          if (now - lastSpark < SPARKLE.hoverGap || Math.random() > SPARKLE.hoverChance) return;
+          lastSpark = now;
+          const hit = charAtPoint(e.clientX, e.clientY);
+          if (hit && hit[0].nodeType === 3 && el.contains(hit[0]) && hit[0].data[hit[1]]?.trim()) {
+            sparkleOnChar(el, hit[0], hit[1]);
+          } else if (Math.random() < 0.25) {
+            sparkleRandom(el);
+          }
+        });
+
+        trigger.addEventListener('mouseleave', (e) => {
+          if (current === null) return;
+          // Slide the glint out past whichever side the cursor left from
+          const r = el.getBoundingClientRect();
+          leaving = true;
+          target = posFor(e.clientX < r.left + r.width / 2 ? -0.3 : 1.3);
+          run();
+        });
+      });
+    })();
 
     // Contact pop-up
     const dialog = document.getElementById('contact-dialog');
     document.querySelector('.contact-link').addEventListener('click', () => dialog.showModal());
+    // "Contact" in the nav opens the same pop-up instead of scrolling
+    // (without JavaScript the link still goes to the contact section)
+    document.querySelectorAll('.site-nav a[href="#contact"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        dialog.showModal();
+      });
+    });
     dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
     // Close when clicking the dimmed area outside the box
     dialog.addEventListener('click', (e) => {
@@ -245,80 +444,14 @@
       revealEls.forEach((el) => el.classList.add('is-visible'));
     }
 
-    // Hover preview that trails the cursor (pointer devices only)
-    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (canHover) {
-      const preview = document.querySelector('.preview');
-      const previewCard = preview.querySelector('.preview-card');
-      const previewImg = preview.querySelector('.preview-fallback');
-      const framesBox = preview.querySelector('.preview-frames');
-      const links = document.querySelectorAll('.work-item a');
-      let targetX = 0, targetY = 0, x = 0, y = 0, running = false;
-
-      // Live mini-previews: each site loads in a desktop-sized iframe that is
-      // scaled down to fit the card. The picture shows until the site has loaded.
-      const SITE_WIDTH = 1280;
-      const frames = new Map();
-
-      const fitFrames = () => {
-        const scale = previewCard.clientWidth / SITE_WIDTH;
-        framesBox.style.setProperty('--scale', scale);
-      };
-
-      const loadFrames = () => {
-        if (frames.size) return;
-        links.forEach((link) => {
-          const frame = document.createElement('iframe');
-          frame.src = link.href;
-          frame.title = 'Preview';
-          frame.tabIndex = -1;
-          frame.setAttribute('scrolling', 'no');
-          frame.addEventListener('load', () => frame.classList.add('is-loaded'));
-          framesBox.appendChild(frame);
-          frames.set(link.href, frame);
-        });
-        fitFrames();
-      };
-
-      window.addEventListener('resize', fitFrames);
-      // Start loading the sites as soon as the visitor gets near the project list
-      document.querySelector('.work-list').addEventListener('mouseenter', loadFrames, { once: true });
-
-      const tick = () => {
-        const ease = reduceMotion ? 1 : 0.15;
-        x += (targetX - x) * ease;
-        y += (targetY - y) * ease;
-        preview.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-        if (Math.abs(targetX - x) > 0.1 || Math.abs(targetY - y) > 0.1) {
-          requestAnimationFrame(tick);
-        } else {
-          running = false;
-        }
-      };
-
-      links.forEach((link) => {
-        link.addEventListener('mouseenter', (e) => {
-          loadFrames();
-          previewImg.src = link.dataset.img;
-          frames.forEach((frame, href) => frame.classList.toggle('is-current', href === link.href));
-          if (!preview.classList.contains('is-active')) {
-            x = targetX = e.clientX;
-            y = targetY = e.clientY;
-          }
-          preview.classList.add('is-active');
-        });
-        link.addEventListener('mouseleave', () => preview.classList.remove('is-active'));
-        link.addEventListener('mousemove', (e) => {
-          targetX = e.clientX;
-          targetY = e.clientY;
-          if (!running) {
-            running = true;
-            requestAnimationFrame(tick);
-          }
-        });
-      });
-    }
   </script>
+
+  <!-- Scroll animation: GSAP + ScrollTrigger, smooth scrolling: Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="js/smooth-scroll.js" defer></script>
+  <script src="js/showcase.js" defer></script>
 </body>
 
 </html>

@@ -1,13 +1,130 @@
-/* ===== Tokens ===== */
+/* =========================================================
+   Midnight Chrome + Platinum
+   ========================================================= */
 :root {
-  --bg: #0b1622;
-  --fg: #ece8e1;
-  --muted: #8b95a1;
-  --line: rgba(236, 232, 225, 0.14);
-  --accent: #59d8ff;
-  --logo-filter: none;
+  /* Palette */
+  --obsidian: #050505;
+  /* dominant background */
+  --graphite: #111315;
+  /* secondary surfaces */
+  --gunmetal: #25292d;
+  /* borders, cards, layers */
+  --steel: #777f87;
+  /* secondary text (5:1 on obsidian) */
+  --platinum: #c5cbd1;
+  /* metallic accents, body copy */
+  --ice: #f8fafc;
+  /* primary type, highlights */
+  --icy: #a9c7d8;
+  /* very subtle hover accent */
 
-  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --bg: var(--obsidian);
+  --fg: var(--ice);
+  --muted: var(--steel);
+  --line: var(--gunmetal);
+
+  /* Polished chrome lettering, cooled toward platinum: sky reflection on
+     top, a hard horizon line, a bright ground bounce below */
+  --chrome-gradient: linear-gradient(180deg,
+      #ffffff 0%,
+      #eef2f5 12%,
+      #c5cbd1 24%,
+      #f8fafc 33%,
+      #9aa2aa 43%,
+      #3a3f44 49%,
+      #15181b 51%,
+      #5b6269 55%,
+      #c5cbd1 63%,
+      #ffffff 71%,
+      #dde2e6 82%,
+      #8e969e 92%,
+      #e9edf0 100%);
+
+  /* Diagonal mirror reflections laid over the base chrome. Two repeating
+     patterns with unrelated periods interfere, so every letter catches a
+     different mix of bright and dark streaks */
+  --chrome-streaks-a: repeating-linear-gradient(118deg,
+      rgba(255, 255, 255, 0) 0em,
+      rgba(255, 255, 255, 0.75) 0.06em,
+      rgba(255, 255, 255, 0) 0.2em,
+      rgba(5, 8, 12, 0) 0.34em,
+      rgba(5, 8, 12, 0.5) 0.44em,
+      rgba(5, 8, 12, 0) 0.56em,
+      rgba(5, 8, 12, 0) 0.93em);
+  --chrome-streaks-b: repeating-linear-gradient(64deg,
+      rgba(5, 8, 12, 0) 0em,
+      rgba(5, 8, 12, 0.35) 0.1em,
+      rgba(5, 8, 12, 0) 0.24em,
+      rgba(255, 255, 255, 0) 0.7em,
+      rgba(255, 255, 255, 0.55) 0.8em,
+      rgba(255, 255, 255, 0) 0.92em,
+      rgba(255, 255, 255, 0) 1.41em);
+
+  /* Softer chrome for small text, where the deep band would hurt legibility */
+  --chrome-gradient-soft: linear-gradient(180deg,
+      #ffffff 0%,
+      #e3e7eb 30%,
+      #9aa2aa 50%,
+      #c5cbd1 62%,
+      #f8fafc 82%,
+      #b7bdc3 100%);
+
+  /* Brushed chrome running sideways, for hairlines */
+  --chrome-line: linear-gradient(90deg,
+      rgba(37, 41, 45, 0) 0%,
+      #9aa2aa 16%,
+      #f8fafc 30%,
+      #777f87 48%,
+      #c5cbd1 66%,
+      #777f87 82%,
+      rgba(37, 41, 45, 0) 100%);
+
+  /* Diagonal chrome for filled surfaces (buttons on hover) */
+  --chrome-fill: linear-gradient(135deg,
+      #f8fafc 0%,
+      #b4bbc2 26%,
+      #ffffff 44%,
+      #777f87 68%,
+      #dde2e6 88%,
+      #9aa2aa 100%);
+
+  /* Restrained metallic edge for cards and frames: platinum where the
+     light hits, gunmetal elsewhere */
+  --rim-gradient: linear-gradient(160deg,
+      rgba(197, 203, 209, 0.75) 0%,
+      var(--gunmetal) 38%,
+      var(--gunmetal) 72%,
+      rgba(197, 203, 209, 0.35) 100%);
+
+  /* Specular glint that travels across chrome */
+  --chrome-glint: linear-gradient(105deg,
+      rgba(255, 255, 255, 0) 42%,
+      rgba(255, 255, 255, 0.9) 49%,
+      rgba(255, 255, 255, 1) 50%,
+      rgba(255, 255, 255, 0.9) 51%,
+      rgba(255, 255, 255, 0) 58%);
+
+  /* Bevel: light catching the top edge, a dark under-cut, a crisp rim,
+     and a soft lift off the background. (drop-shadow filters, because with
+     background-clip:text a text-shadow paints over the chrome and dulls it) */
+  --chrome-bevel:
+    drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.4))
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.95))
+    drop-shadow(0 0 0.5px rgba(248, 250, 252, 0.55));
+
+  /* Four-point star glint */
+  --sparkle:
+    radial-gradient(circle, #ffffff 0, rgba(255, 255, 255, 0.95) 5%, rgba(255, 255, 255, 0.3) 16%, rgba(255, 255, 255, 0) 38%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0), #ffffff 50%, rgba(255, 255, 255, 0)) center / 100% 1.5px no-repeat,
+    linear-gradient(180deg, rgba(255, 255, 255, 0), #ffffff 50%, rgba(255, 255, 255, 0)) center / 1.5px 100% no-repeat;
+
+  /* Layered surfaces: a hairline of light on top, depth below */
+  --shadow-layer:
+    inset 0 1px 0 rgba(248, 250, 252, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 30px 70px -20px rgba(0, 0, 0, 0.9);
+
+  --serif: "Playfair Display", Didot, "Bodoni MT", Georgia, serif;
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
 
@@ -15,27 +132,140 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --bg: #f3efe7;
-    --fg: #14181d;
-    --muted: #6b6f75;
-    --line: rgba(20, 24, 29, 0.14);
-    --accent: #0a6c8a;
-    --logo-filter: invert(1);
+/* =========================================================
+   Chrome utilities
+   .chrome-text     polished chrome fill (any text)
+   .chrome-heading  chrome-text + reflections + bevel, for large type
+   .chrome-accent   softer chrome for small labels, numbers, icons
+   .chrome-sweep    adds a slow, periodic light reflection
+   .chrome-rim      chrome ring on a dark button
+   ========================================================= */
+
+/* Position of the moving glint. Animated by .chrome-sweep / hover;
+   the script overrides it with --glint-pos to follow the cursor. */
+@property --sweep {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+/* Fallback first: solid platinum where gradient text isn't supported */
+.chrome-text,
+.chrome-heading,
+.chrome-accent {
+  color: var(--platinum);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+
+  .chrome-text,
+  .chrome-heading,
+  .chrome-accent {
+    background-image: var(--chrome-glint), var(--chrome-gradient);
+    background-size: 260% 100%, 100% 100%;
+    background-position: var(--glint-pos, var(--sweep)) 0, 0 0, 0 0, 0 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .chrome-accent {
+    background-image: var(--chrome-glint), var(--chrome-gradient-soft);
+    filter: drop-shadow(0 -0.5px 0 rgba(255, 255, 255, 0.25));
+  }
+
+  /* Large chrome: base chrome + diagonal reflections + glint, a fine dark
+     contour just inside the letter edge and a bright outer rim */
+  .chrome-heading {
+    background-image: var(--chrome-glint), var(--chrome-streaks-a), var(--chrome-streaks-b), var(--chrome-gradient);
+    background-size: 260% 100%, auto, auto, 100% 100%;
+    background-repeat: no-repeat, repeat, repeat, no-repeat;
+    /* When a heading wraps, give every line its own copy of the chrome and
+       the shine (otherwise the lines share one long strip and the shine
+       never reaches the second line) */
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    -webkit-text-stroke: 0.005em rgba(10, 12, 14, 0.7);
+    paint-order: stroke fill;
+    filter: var(--chrome-bevel);
+    font-weight: 600;
+    /* Gradient text only paints inside the box, so extend it to cover
+       italic overhang and descenders; the negative margin keeps layout */
+    padding-right: 0.1em;
+    padding-bottom: 0.28em;
+    margin-bottom: -0.28em;
+  }
+
+  /* Small chrome: glint passes across on hover. (Large .chrome-heading
+     text is driven by the script instead: the glint follows the cursor.) */
+  a:hover .chrome-text,
+  a:hover .chrome-accent,
+  button:hover .chrome-text,
+  a.chrome-accent:hover {
+    --sweep: 100%;
+    transition: --sweep 1.3s var(--ease);
+  }
+
+  .chrome-sweep {
+    animation: chrome-sweep 9s ease-in-out 1.6s infinite both;
   }
 }
 
-:root[data-theme="light"] {
-  --bg: #f3efe7;
-  --fg: #14181d;
-  --muted: #6b6f75;
-  --line: rgba(20, 24, 29, 0.14);
-  --accent: #0a6c8a;
-  --logo-filter: invert(1);
+@keyframes chrome-sweep {
+  0% {
+    --sweep: 0%;
+  }
+
+  22%,
+  100% {
+    --sweep: 100%;
+  }
 }
 
-/* ===== Base ===== */
+/* Star glints: created by the script at random spots on chrome letters
+   (and under the cursor on hover). Each one blinks once and is removed. */
+.sparkle {
+  position: absolute;
+  z-index: 6;
+  width: var(--size, 32px);
+  height: var(--size, 32px);
+  margin: calc(var(--size, 32px) / -2) 0 0 calc(var(--size, 32px) / -2);
+  background: var(--sparkle);
+  pointer-events: none;
+  opacity: 0;
+  animation: blink var(--dur, 0.9s) ease-in-out forwards;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) rotate(0deg);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1) rotate(25deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(50deg);
+  }
+}
+
+/* Chrome ring on a dark button; fills with chrome on hover */
+.chrome-rim {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--rim-fill, var(--obsidian)), var(--rim-fill, var(--obsidian))) padding-box,
+    var(--chrome-fill) border-box;
+}
+
+/* =========================================================
+   Base
+   ========================================================= */
 *,
 *::before,
 *::after {
@@ -44,6 +274,7 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--bg);
 }
 
 body {
@@ -52,9 +283,11 @@ body {
   color: var(--fg);
   font-family: var(--sans);
   font-size: 17px;
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
+  -moz-osx-font-smoothing: grayscale;
+  /* sparkles near an edge must never cause sideways scrolling */
+  overflow-x: clip;
 }
 
 a {
@@ -74,20 +307,45 @@ em {
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--bg);
+  background: var(--platinum);
+  color: var(--obsidian);
+  -webkit-text-fill-color: var(--obsidian);
+}
+
+:focus-visible {
+  outline: 1px solid var(--platinum);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 .label {
   font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
   margin: 0;
 }
 
-/* ===== Header ===== */
+/* Brushed-chrome hairline dividers */
+.site-header::after,
+.section-head::after,
+.hero-foot::before,
+.contact::before,
+.site-footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--chrome-line);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
 .site-header {
   position: fixed;
   inset: 0 0 auto 0;
@@ -95,91 +353,243 @@ em {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px var(--gutter);
-  background: color-mix(in srgb, var(--bg) 80%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  padding: 22px var(--gutter);
+  background: rgba(5, 5, 5, 0);
+  transition: background-color 0.5s var(--ease), padding 0.5s var(--ease),
+    backdrop-filter 0.5s var(--ease);
+}
+
+/* Once the page scrolls: a graphite glass bar with a platinum hairline */
+.site-header.is-scrolled {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  background: rgba(17, 19, 21, 0.72);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+/* Thin, understated silver line under the nav; brighter once scrolled */
+.site-header::after {
+  bottom: 0;
+  opacity: 0.16;
+  transition: opacity 0.5s var(--ease);
+}
+
+.site-header.is-scrolled::after {
+  opacity: 0.35;
+}
+
+/* Logo: the monogram in a small graphite badge with a gunmetal ring.
+   A chrome layer, masked to the monogram's shape, sits exactly over the
+   white image. If the mask can't load (e.g. the page is opened straight
+   from disk), the layer simply doesn't render and the white mark shows. */
+.logo {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--gunmetal);
+  background:
+    radial-gradient(circle at 30% 22%, rgba(197, 203, 209, 0.14), rgba(197, 203, 209, 0) 62%),
+    var(--graphite);
+  box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.07), 0 4px 14px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition: border-color 0.5s var(--ease), box-shadow 0.5s var(--ease);
 }
 
 .logo img {
-  width: 36px;
-  height: 36px;
+  width: 26px;
+  height: 26px;
   object-fit: contain;
-  filter: var(--logo-filter);
+}
+
+.logo::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -50%);
+  background-image: var(--chrome-glint), var(--chrome-gradient);
+  background-size: 260% 100%, 100% 100%;
+  background-position: 0% 0, 0 0;
+  background-repeat: no-repeat;
+  -webkit-mask: url("images/mclogo.png") center / contain no-repeat;
+  mask: url("images/mclogo.png") center / contain no-repeat;
+  pointer-events: none;
+  transition: background-position 1.2s var(--ease);
+}
+
+.logo:hover {
+  border-color: rgba(197, 203, 209, 0.55);
+  box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.1), 0 0 0 4px rgba(197, 203, 209, 0.05), 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.logo:hover::after {
+  background-position: 100% 0, 0 0;
 }
 
 .site-nav {
   display: flex;
   align-items: center;
-  gap: clamp(16px, 3vw, 36px);
-  font-size: 0.9rem;
+  gap: clamp(18px, 3vw, 40px);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 .site-nav a {
   position: relative;
+  padding: 4px 0;
+  color: var(--steel);
+  transition: color 0.4s var(--ease);
 }
 
-.site-nav a::after,
-.site-footer a::after {
+.site-nav a:hover {
+  color: var(--ice);
+}
+
+/* Silver indicator that grows from the centre */
+.site-nav a:not(.nav-cta)::after {
   content: "";
   position: absolute;
-  left: 0;
+  left: 50%;
   bottom: -2px;
   width: 100%;
   height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s var(--ease);
+  background: linear-gradient(90deg, rgba(197, 203, 209, 0), var(--platinum), rgba(197, 203, 209, 0));
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.5s var(--ease);
 }
 
-.site-nav a:hover::after,
-.site-footer a:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
+.site-nav a:not(.nav-cta):hover::after {
+  transform: translateX(-50%) scaleX(1);
 }
 
-.theme-toggle {
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
+/* CV: a small platinum-edged pill */
+.site-nav .nav-cta {
+  padding: 7px 16px;
+  border: 1px solid var(--gunmetal);
+  border-radius: 999px;
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 
-.theme-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: linear-gradient(90deg, var(--fg) 50%, transparent 50%);
-  border: 1px solid var(--fg);
+.site-nav .nav-cta:hover {
+  border-color: var(--platinum);
+  box-shadow: 0 0 0 4px rgba(197, 203, 209, 0.06);
 }
 
-/* ===== Hero ===== */
+/* =========================================================
+   Hero
+   ========================================================= */
+/* Two columns: name and intro bottom-left, a reserved photo slot on the
+   right. The first row is empty space, so the content stays anchored to
+   the bottom of the screen. */
 .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
   min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  grid-template-rows: 1fr auto auto auto;
+  grid-template-areas:
+    ".     visual"
+    "label visual"
+    "title visual"
+    "foot  foot";
+  column-gap: clamp(24px, 4vw, 64px);
   padding: 120px var(--gutter) 48px;
+  /* Layered metallic gradient, top layer first:
+     - a soft vignette that darkens the edges and focuses the centre
+     - one broad, brushed-metal sheen running diagonally across
+     - platinum light falling in from the top right
+     - a faint icy haze behind the name
+     - a graphite floor rising from below
+     - a graphite-to-obsidian base */
+  background:
+    radial-gradient(130% 100% at 50% 40%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%),
+    linear-gradient(118deg,
+      rgba(248, 250, 252, 0) 28%,
+      rgba(248, 250, 252, 0.03) 44%,
+      rgba(248, 250, 252, 0.055) 50%,
+      rgba(248, 250, 252, 0.03) 56%,
+      rgba(248, 250, 252, 0) 72%),
+    radial-gradient(85% 100% at 86% -16%, rgba(197, 203, 209, 0.26) 0%, rgba(197, 203, 209, 0.13) 32%, rgba(197, 203, 209, 0.04) 55%, rgba(197, 203, 209, 0) 74%),
+    radial-gradient(55% 50% at 14% 72%, rgba(169, 199, 216, 0.07) 0%, rgba(169, 199, 216, 0) 70%),
+    radial-gradient(120% 50% at 50% 112%, #16191c 0%, rgba(22, 25, 28, 0) 65%),
+    linear-gradient(160deg, #0c0e10 0%, var(--obsidian) 45%, #08090b 100%);
+}
+
+/* Film grain: barely visible, it turns flat black into a rich surface
+   and stops the gradients from banding */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.045;
+  pointer-events: none;
+}
+
+/* ---- Reserved photo slot ---- */
+.hero-visual {
+  grid-area: visual;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 100%;
+  pointer-events: none;
+}
+
+/* Your photo, once added: sits on the floor and fades into the black */
+.hero-visual img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 74svh;
+  object-fit: contain;
+  object-position: bottom center;
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.7));
 }
 
 .hero-label {
-  margin-bottom: 24px;
+  grid-area: label;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: clamp(20px, 3vh, 32px);
   overflow: hidden;
 }
 
+/* Short platinum rule before the label */
+.hero-label::before {
+  content: "";
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(197, 203, 209, 0), var(--platinum));
+  animation: fade 1.1s var(--ease) 0.1s both;
+}
+
 .hero-title {
+  grid-area: title;
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(3.4rem, 13vw, 12.5rem);
-  line-height: 0.92;
+  /* sized so the name stays in the left column, clear of the photo slot */
+  font-size: clamp(3.2rem, 9vw, 9.5rem);
+  line-height: 0.95;
   letter-spacing: -0.02em;
-  margin: 0 0 clamp(32px, 6vw, 72px);
+  margin: 0;
 }
 
 .hero-title .line {
@@ -187,8 +597,8 @@ em {
   overflow: hidden;
   /* Extra room so descenders (g, y, p) aren't clipped by the reveal mask;
      the negative margin keeps the visual line spacing unchanged */
-  padding-bottom: 0.2em;
-  margin-bottom: -0.14em;
+  padding-bottom: 0.32em;
+  margin-bottom: -0.26em;
 }
 
 .hero-title em {
@@ -196,22 +606,57 @@ em {
 }
 
 .hero-foot {
+  grid-area: foot;
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: 24px;
-  border-top: 1px solid var(--line);
+  margin-top: clamp(32px, 6vw, 64px);
   padding-top: 24px;
+}
+
+.hero-foot::before {
+  top: 0;
 }
 
 .hero-intro {
   max-width: 34ch;
   margin: 0;
-  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--platinum);
 }
 
-.scroll-cue:hover {
-  color: var(--fg);
+/* Tablet and phone: one column, name back to full size */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto auto auto;
+    grid-template-areas:
+      "."
+      "visual"
+      "label"
+      "title"
+      "foot";
+  }
+
+  .hero-title {
+    font-size: clamp(3.2rem, 11vw, 9.5rem);
+  }
+
+  .hero-visual {
+    min-height: 0;
+    margin-bottom: 32px;
+  }
+
+  .hero-visual img {
+    max-height: 42svh;
+  }
+
+  /* Until a photo is added, the slot takes no room on small screens */
+  .hero-visual:not(:has(img)) {
+    display: none;
+  }
 }
 
 /* Hero load-in animation */
@@ -226,10 +671,29 @@ em {
   animation-name: fade;
 }
 
+/* Hero name keeps its rise-in and adds the periodic chrome reflection */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+
+  /* On the lit hero only, a soft shadow lifts the name off the background */
+  .hero-title .chrome-heading {
+    filter: var(--chrome-bevel) drop-shadow(0 0.05em 0.1em rgba(0, 0, 0, 0.8));
+  }
+
+  .hero-title .line-in.chrome-sweep {
+    animation:
+      rise 1.1s var(--ease) both,
+      chrome-sweep 9s ease-in-out infinite both;
+    animation-delay:
+      calc(var(--d, 0) * 0.1s + 0.1s),
+      calc(var(--d, 0) * 0.18s + 1.2s);
+  }
+}
+
 @keyframes rise {
   from {
     transform: translateY(105%);
   }
+
   to {
     transform: translateY(0);
   }
@@ -240,29 +704,36 @@ em {
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: none;
   }
 }
 
-/* ===== Sections ===== */
+/* =========================================================
+   Sections
+   ========================================================= */
 .section {
-  padding: clamp(80px, 12vw, 160px) var(--gutter) 0;
+  padding: clamp(88px, 12vw, 160px) var(--gutter) 0;
 }
 
 .section-head {
+  position: relative;
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--line);
+}
+
+.section-head::after {
+  bottom: 0;
 }
 
 /* Scroll reveal */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  transform: translateY(28px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
 }
 
 .reveal.is-visible {
@@ -270,148 +741,409 @@ em {
   transform: none;
 }
 
-/* ===== Work list ===== */
-.work-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* =========================================================
+   Laptop showcase (scroll-driven; see js/showcase.js)
+   ========================================================= */
+
+/* Static fallback (no JavaScript, or reduced motion): no laptop, the
+   project panels simply listed one after another */
+.showcase {
+  position: relative;
 }
 
-.work-item {
-  border-bottom: 1px solid var(--line);
+html:not(.has-showcase) .showcase-pin {
+  height: auto;
+  padding: clamp(88px, 12vw, 160px) var(--gutter) 0;
 }
 
-.work-item a {
-  display: grid;
-  grid-template-columns: 3rem 1fr auto;
-  align-items: center;
-  gap: 16px;
-  padding: clamp(20px, 3vw, 36px) 0;
-  transition: color 0.4s var(--ease);
-}
-
-.work-title {
-  font-family: var(--serif);
-  font-size: clamp(1.9rem, 5vw, 4.2rem);
-  line-height: 1.05;
-  transition: transform 0.5s var(--ease), font-style 0s;
-}
-
-.work-thumb {
+html:not(.has-showcase) .showcase-intro,
+html:not(.has-showcase) .showcase-stage,
+html:not(.has-showcase) .showcase-head p + p,
+html:not(.has-showcase) .showcase-progress {
   display: none;
 }
 
-.work-arrow {
-  font-size: 1.4rem;
-  transition: transform 0.5s var(--ease);
+html:not(.has-showcase) .showcase .showcase-head,
+html:not(.has-showcase) .showcase .showcase-info {
+  position: relative;
+  inset: auto;
+  transform: none;
+  width: auto;
 }
 
-/* Dim the other rows while one is hovered */
-@media (hover: hover) and (pointer: fine) {
-  .work-list:hover .work-item a {
-    color: var(--muted);
-  }
-
-  .work-list .work-item a:hover {
-    color: var(--fg);
-  }
-
-  .work-item a:hover .work-title {
-    transform: translateX(16px);
-    font-style: italic;
-  }
-
-  .work-item a:hover .work-arrow {
-    transform: translate(4px, -4px);
-    color: var(--accent);
-  }
+html:not(.has-showcase) .showcase-info {
+  gap: clamp(48px, 6vw, 80px);
+  padding-top: clamp(32px, 5vw, 64px);
 }
 
-/* Floating cursor preview */
-.preview {
-  position: fixed;
-  top: 0;
+html:not(.has-showcase) .project-panel {
+  grid-area: auto;
+  max-width: 640px;
+}
+
+/* ---- Scroll-driven version ---- */
+.has-showcase .showcase-pin {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(180deg, #08090a 0%, var(--obsidian) 100%);
+}
+
+/* ---- Product-studio backdrop ----
+   A seamless "sweep" like a product photo set: a graphite wall that
+   brightens toward a horizon behind the laptop, curving into a floor that
+   catches the light and darkens toward the viewer. The script sets
+   --laptop-cx (the laptop's centre) and --floor-y (the horizon) so the set
+   is always lit around where the laptop rests. The light falls off before
+   the text column, keeping the project info on dark. */
+.has-showcase .showcase-pin::before,
+.has-showcase .showcase-pin::after {
+  content: "";
+  position: absolute;
   left: 0;
-  z-index: 5;
-  width: clamp(240px, 24vw, 360px);
-  aspect-ratio: 4 / 3;
+  right: 0;
+  z-index: -1;
   pointer-events: none;
 }
 
-.preview-card {
-  position: relative;
+/* Wall: brightest just above the horizon, fading up into the dark */
+.has-showcase .showcase-pin::before {
+  top: 0;
+  height: var(--floor-y, 70%);
+  background:
+    radial-gradient(66% 120% at var(--laptop-cx, 70%) 100%,
+      rgba(168, 176, 184, 0.5) 0%,
+      rgba(112, 119, 126, 0.28) 30%,
+      rgba(56, 61, 66, 0.12) 55%,
+      rgba(37, 41, 45, 0) 76%),
+    linear-gradient(180deg, rgba(17, 19, 21, 0) 40%, rgba(17, 19, 21, 0.6) 100%);
+}
+
+/* Floor: catches the light at the horizon (with a faint highlight line
+   where wall meets floor) and darkens toward the bottom edge */
+.has-showcase .showcase-pin::after {
+  top: var(--floor-y, 70%);
+  bottom: 0;
+  background:
+    radial-gradient(62% 26px at var(--laptop-cx, 70%) 0%, rgba(197, 203, 209, 0.26) 0%, rgba(197, 203, 209, 0) 100%),
+    radial-gradient(72% 150% at var(--laptop-cx, 70%) 0%,
+      rgba(146, 154, 162, 0.4) 0%,
+      rgba(84, 90, 96, 0.2) 32%,
+      rgba(37, 41, 45, 0) 72%),
+    linear-gradient(180deg, rgba(17, 19, 21, 0.6) 0%, rgba(5, 5, 5, 0) 60%);
+}
+
+/* The render's coordinate space (1320x880 cropped frame), scaled and
+   placed by the script */
+.showcase-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1320px;
+  height: 880px;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+/* Laptop frames (the top-edge fade is painted by the script) */
+.showcase-canvas {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  border-radius: 6px;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* Soft pool of light on the floor under the open laptop */
+.showcase-glow {
+  position: absolute;
+  left: 300px;
+  top: 770px;
+  width: 1030px;
+  height: 170px;
+  background: radial-gradient(50% 50% at 50% 45%, rgba(197, 203, 209, 0.13) 0%, rgba(197, 203, 209, 0.04) 45%, rgba(197, 203, 209, 0) 72%);
+}
+
+/* Screen light: a soft halo of the current project's colour behind the
+   open screen, plus a faint spill on the floor in front of the laptop, as
+   if the screen were lighting the studio. Positioned in the render's
+   coordinates: the screen's centre is at (910, 363). Very low strength
+   (about 5-8% where it shows) so the black-and-platinum palette holds. */
+.showcase-ambient {
+  position: absolute;
+  left: -90px;
+  top: -287px;
+  width: 2000px;
+  height: 1300px;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.showcase-ambient span {
+  position: absolute;
+  inset: 0;
   opacity: 0;
-  transform: scale(0.85) rotate(-3deg);
-  transition: opacity 0.35s var(--ease), transform 0.5s var(--ease);
+  visibility: hidden;
+  background:
+    radial-gradient(34% 42% at 50% 50%, rgb(var(--c) / 0.34) 0%, rgb(var(--c) / 0.16) 45%, rgb(var(--c) / 0) 100%),
+    radial-gradient(36% 11% at 47.5% 86%, rgb(var(--c) / 0.28) 0%, rgb(var(--c) / 0) 100%);
 }
 
-.preview.is-active .preview-card {
-  opacity: 1;
-  transform: scale(1) rotate(0);
-}
-
-.preview-fallback {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Live site, rendered at desktop size and scaled down to the card */
-.preview-frames iframe {
+/* HTML screen, mapped onto the display with matrix3d by the script */
+.screen {
   position: absolute;
   top: 0;
   left: 0;
   width: 1280px;
-  height: 960px;
-  border: 0;
-  background: #fff;
-  transform: scale(var(--scale, 0.25));
+  height: 800px;
   transform-origin: 0 0;
-  pointer-events: none;
+  overflow: hidden;
+  border-radius: 0;
+  background: #0c0d0f;
   visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.screen-shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  /* a touch dimmer than the raw screenshot, like a real panel */
+  filter: brightness(0.92) contrast(1.03);
+}
+
+/* Glass: a diagonal reflection plus an inner shadow at the bezel, so the
+   content reads as being behind the screen rather than floating on it */
+.screen-glare {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(118deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.05) 28%, rgba(255, 255, 255, 0) 50%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.22) 100%);
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+/* Intro title, centred; the laptop drops through it */
+.showcase-intro {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  padding: 0 var(--gutter);
+  text-align: center;
+  pointer-events: none;
+}
+
+.showcase-intro-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(3.4rem, 10vw, 8.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.showcase-intro-hint {
+  color: var(--steel);
+}
+
+/* Section head with counter and progress line */
+.showcase-head {
+  position: absolute;
+  top: clamp(84px, 11vh, 108px);
+  left: var(--gutter);
+  right: var(--gutter);
+}
+
+.showcase-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--platinum), var(--ice));
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 1;
+}
+
+/* Project info on the left, panels stacked in one grid cell */
+.showcase-info {
+  position: absolute;
+  left: var(--gutter);
+  /* centred on the laptop's middle (set by the script) */
+  top: var(--laptop-mid, 53%);
+  transform: translateY(-50%);
+  width: min(640px, calc(var(--laptop-left, 50vw) - var(--gutter) - 40px));
+  display: grid;
+}
+
+.project-panel {
+  grid-area: 1 / 1;
+  align-self: center;
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.project-meta span:first-child {
+  font-size: 0.85rem;
+}
+
+.project-meta span:last-child {
+  padding-left: 14px;
+  border-left: 1px solid var(--gunmetal);
+}
+
+.project-title {
+  margin: 18px 0 18px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.6vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+
+.project-desc {
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.1vw, 1.15rem);
+  color: var(--platinum);
+}
+
+.project-tech {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0 30px;
+  padding: 0;
+}
+
+.project-tech li {
+  padding: 6px 13px;
+  border: 1px solid var(--gunmetal);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(37, 41, 45, 0.5), rgba(17, 19, 21, 0.5));
+  color: var(--platinum);
+}
+
+/* "View project": a chrome-rimmed pill that fills with chrome on hover */
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  color: var(--ice);
+  transition: color 0.3s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+.project-link span {
+  transition: transform 0.4s var(--ease);
+}
+
+.project-link:hover {
+  background: var(--chrome-fill) padding-box, var(--chrome-fill) border-box;
+  color: var(--obsidian);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(197, 203, 209, 0.06);
+  transform: translateY(-1px);
+}
+
+.project-link:hover span {
+  transform: translate(2px, -2px);
+}
+
+/* Phones and portrait tablets: laptop on top, info underneath */
+.showcase.is-portrait .showcase-head {
+  top: 76px;
+}
+
+.showcase.is-portrait .showcase-info {
+  top: calc(var(--laptop-bottom, 50vh) + 8px);
+  right: var(--gutter);
+  transform: none;
+  width: auto;
+}
+
+.showcase.is-portrait .project-panel {
+  align-self: start;
+}
+
+.showcase.is-portrait .project-title {
+  margin: 12px 0 10px;
+  font-size: clamp(1.6rem, 6.5vw, 2.4rem);
+}
+
+.showcase.is-portrait .project-desc {
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.showcase.is-portrait .project-tech {
+  margin: 14px 0 18px;
+}
+
+@media (max-height: 640px) {
+  .showcase.is-portrait .project-desc {
+    display: none;
+  }
+}
+
+/* Brief dim used when a nav link jumps across the laptop showcase */
+.page-fade {
+  position: fixed;
+  inset: 0;
+  z-index: 9;   /* above the page, below the header */
+  background: var(--obsidian);
   opacity: 0;
-  transition: opacity 0.3s var(--ease);
+  pointer-events: none;
+  transition: opacity 0.28s var(--ease);
 }
 
-.preview-frames iframe.is-current {
-  visibility: visible;
-}
-
-.preview-frames iframe.is-current.is-loaded {
+.page-fade.is-on {
   opacity: 1;
 }
 
-/* Touch devices: show a small thumbnail inside each row instead */
-@media (hover: none), (pointer: coarse) {
-  .preview {
-    display: none;
-  }
-
-  .work-item a {
-    grid-template-columns: 2rem 1fr 64px;
-  }
-
-  .work-arrow {
-    display: none;
-  }
-
-  .work-thumb {
-    display: block;
-    width: 64px;
-    height: 48px;
-    object-fit: cover;
-    border-radius: 3px;
-  }
+/* Lenis smooth scrolling */
+html.lenis,
+html.lenis body {
+  height: auto;
 }
 
-/* ===== About ===== */
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* =========================================================
+   About — a graphite band that fades in and out of black
+   ========================================================= */
+#about {
+  padding-bottom: clamp(88px, 12vw, 160px);
+  margin-top: clamp(48px, 6vw, 80px);
+  background: linear-gradient(180deg,
+      var(--obsidian) 0%,
+      var(--graphite) 22%,
+      var(--graphite) 78%,
+      var(--obsidian) 100%);
+}
+
 .about-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
@@ -420,69 +1152,97 @@ em {
   align-items: start;
 }
 
+/* Photo in a restrained platinum-to-gunmetal frame */
 .about-photo {
   margin: 0;
   max-width: 380px;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 10px;
+  padding: 1px;
+  background: var(--rim-gradient);
+  box-shadow: var(--shadow-layer);
 }
 
 .about-photo img {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
+  border-radius: 9px;
 }
 
 .about-text p {
   max-width: 56ch;
-  color: var(--muted);
+  color: var(--platinum);
 }
 
 .about-text .about-lead {
   font-family: var(--serif);
-  font-size: clamp(1.8rem, 3.6vw, 3rem);
-  line-height: 1.15;
-  color: var(--fg);
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ice);
   margin-top: 0;
 }
 
 .skills {
   list-style: none;
   padding: 0;
-  margin-top: 32px;
+  margin-top: 36px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
+/* Gunmetal chips; a hint of icy silver on hover */
 .skills li {
-  border: 1px solid var(--line);
+  border: 1px solid var(--gunmetal);
   border-radius: 999px;
-  padding: 6px 14px;
-  color: var(--fg);
+  padding: 7px 15px;
+  background: linear-gradient(180deg, rgba(37, 41, 45, 0.55), rgba(17, 19, 21, 0.55));
+  box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.05);
+  color: var(--platinum);
+  transition: border-color 0.4s var(--ease), color 0.4s var(--ease), transform 0.4s var(--ease);
 }
 
-/* ===== Contact ===== */
+.skills li:hover {
+  border-color: rgba(169, 199, 216, 0.45);
+  color: var(--ice);
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   Contact
+   ========================================================= */
 .contact {
-  padding-bottom: clamp(80px, 10vw, 140px);
+  position: relative;
+  padding-bottom: clamp(88px, 10vw, 140px);
+  /* A low spotlight under "Let's talk" and a graphite wash from the right */
+  background:
+    radial-gradient(55% 60% at 12% 100%, rgba(197, 203, 209, 0.07) 0%, rgba(197, 203, 209, 0) 70%),
+    radial-gradient(45% 60% at 100% 30%, rgba(17, 19, 21, 1) 0%, rgba(17, 19, 21, 0) 70%),
+    var(--obsidian);
+}
+
+.contact::before {
+  top: 0;
+  opacity: 0;
 }
 
 .contact-kicker {
-  margin: clamp(32px, 5vw, 64px) 0 8px;
-  color: var(--muted);
+  margin: clamp(32px, 5vw, 64px) 0 10px;
+  color: var(--steel);
 }
 
 .contact-link {
   display: inline-block;
-  background: none;
+  background-color: transparent;
   border: 0;
   padding: 0;
-  color: inherit;
   cursor: pointer;
   text-align: left;
   font-family: var(--serif);
-  font-size: clamp(3.4rem, 12vw, 11rem);
-  line-height: 1;
+  font-size: clamp(3.2rem, 10vw, 8.5rem);
+  line-height: 1.02;
   letter-spacing: -0.02em;
   position: relative;
 }
@@ -491,37 +1251,36 @@ em {
   display: inline-block;
   font-size: 0.5em;
   vertical-align: top;
-  transition: transform 0.5s var(--ease), color 0.4s var(--ease);
+  transition: transform 0.5s var(--ease);
 }
 
 .contact-link:hover span {
   transform: translate(8px, -8px);
-  color: var(--accent);
 }
 
-.contact-link:hover em {
-  color: var(--accent);
-}
-
-/* ===== Contact pop-up ===== */
+/* =========================================================
+   Contact pop-up
+   ========================================================= */
 .contact-dialog {
   width: min(520px, calc(100vw - 32px));
   padding: clamp(24px, 4vw, 40px);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--bg);
-  color: var(--fg);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, var(--graphite) 0%, #0a0b0c 100%) padding-box,
+    var(--rim-gradient) border-box;
+  color: var(--ice);
+  box-shadow: var(--shadow-layer), 0 0 0 1px rgba(0, 0, 0, 0.6);
 }
 
 .contact-dialog::backdrop {
-  background: rgba(5, 10, 16, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(5, 5, 5, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .contact-dialog[open] {
-  animation: dialog-in 0.4s var(--ease);
+  animation: dialog-in 0.45s var(--ease);
 }
 
 .contact-dialog[open]::backdrop {
@@ -533,6 +1292,7 @@ em {
     opacity: 0;
     transform: translateY(16px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: none;
@@ -548,31 +1308,43 @@ em {
 .dialog-head h2 {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(2.4rem, 6vw, 3.4rem);
-  line-height: 1;
+  font-size: clamp(2.2rem, 5.5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
   margin: 0;
 }
 
+/* Chrome-ring buttons that fill with chrome on hover */
+.dialog-close,
+.copy-email {
+  --rim-fill: var(--graphite);
+  color: var(--platinum);
+  cursor: pointer;
+  transition: color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.4s var(--ease);
+}
+
+.dialog-close:hover,
+.copy-email:hover {
+  background: var(--chrome-fill) padding-box, var(--chrome-fill) border-box;
+  color: var(--obsidian);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(197, 203, 209, 0.06);
+}
+
 .dialog-close {
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--line);
+  width: 38px;
+  height: 38px;
+  padding: 0;
   border-radius: 50%;
-  background: transparent;
-  color: var(--fg);
   font-size: 1.3rem;
   line-height: 1;
-  cursor: pointer;
-  transition: border-color 0.3s var(--ease), transform 0.4s var(--ease);
 }
 
 .dialog-close:hover {
-  border-color: var(--fg);
   transform: rotate(90deg);
 }
 
 .dialog-sub {
-  color: var(--muted);
+  color: var(--steel);
   margin: 12px 0 24px;
 }
 
@@ -580,14 +1352,14 @@ em {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--gunmetal);
 }
 
 .contact-options li {
   display: flex;
   align-items: center;
   gap: 12px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--gunmetal);
 }
 
 .contact-options a {
@@ -600,6 +1372,10 @@ em {
   padding: 18px 0;
 }
 
+.contact-options .label {
+  transition: color 0.4s var(--ease);
+}
+
 .option-value {
   font-family: var(--serif);
   font-size: 1.4rem;
@@ -610,7 +1386,12 @@ em {
 }
 
 .option-arrow {
-  transition: transform 0.4s var(--ease), color 0.3s var(--ease);
+  display: inline-block;
+  transition: transform 0.4s var(--ease);
+}
+
+.contact-options a:hover .label {
+  color: var(--icy);
 }
 
 .contact-options a:hover .option-value {
@@ -620,21 +1401,12 @@ em {
 
 .contact-options a:hover .option-arrow {
   transform: translate(3px, -3px);
-  color: var(--accent);
 }
 
 .copy-email {
-  border: 1px solid var(--line);
   border-radius: 999px;
-  background: transparent;
   padding: 6px 12px;
-  cursor: pointer;
-  color: var(--fg);
   min-width: 4.8rem;
-}
-
-.copy-email:hover {
-  border-color: var(--fg);
 }
 
 @media (max-width: 480px) {
@@ -648,34 +1420,73 @@ em {
   }
 }
 
-/* ===== Footer ===== */
+/* =========================================================
+   Footer
+   ========================================================= */
 .site-footer {
+  position: relative;
   display: flex;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  padding: 24px var(--gutter);
-  border-top: 1px solid var(--line);
+  padding: 28px var(--gutter);
+  background: var(--graphite);
+}
+
+.site-footer::before {
+  top: 0;
+  opacity: 0.3;
 }
 
 .site-footer a {
   position: relative;
+  transition: color 0.4s var(--ease);
 }
 
 .site-footer a:hover {
-  color: var(--fg);
+  color: var(--ice);
 }
 
-/* ===== Responsive ===== */
+.site-footer a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: var(--platinum);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease);
+}
+
+.site-footer a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
 @media (max-width: 720px) {
   .site-header {
     padding-top: 16px;
     padding-bottom: 16px;
   }
 
+  .site-header.is-scrolled {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
   .site-nav {
-    gap: 16px;
-    font-size: 0.85rem;
+    gap: 14px;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+  }
+
+  .site-nav .nav-cta {
+    padding: 5px 12px;
   }
 
   .hero-title em {
@@ -696,7 +1507,9 @@ em {
   }
 }
 
-/* ===== Reduced motion ===== */
+/* =========================================================
+   Reduced motion
+   ========================================================= */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -707,6 +1520,8 @@ em {
   *::after {
     animation-duration: 0.01ms !important;
     animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
   }
 }
