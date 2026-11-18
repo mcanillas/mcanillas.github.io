@@ -277,6 +277,77 @@ html {
   background: var(--bg);
 }
 
+/* =========================================================
+   Scrollbar: obsidian track, slim brushed-chrome thumb
+   (Chrome, Edge, Safari; Firefox gets the flat colours below)
+   ========================================================= */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--obsidian);
+  border-left: 1px solid rgba(37, 41, 45, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  /* Transparent border + padding-box clip = a thin pill floating in the track */
+  border: 3px solid transparent;
+  border-radius: 12px;
+  /* Polished chrome across the pill: bright rim, hard white highlight,
+     a dark horizon reflection, then a bright bounce on the far edge.
+     Soft top/bottom shading on top makes the ends look rounded. */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 18%, rgba(255, 255, 255, 0) 82%, rgba(0, 0, 0, 0.35)) padding-box,
+    linear-gradient(90deg,
+      #8e969e 0%,
+      #ffffff 18%,
+      #ffffff 30%,
+      #c5cbd1 42%,
+      #3a3f44 55%,
+      #15181b 60%,
+      #6b737b 72%,
+      #eef2f5 88%,
+      #9aa2aa 100%) padding-box;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 18%, rgba(255, 255, 255, 0) 82%, rgba(0, 0, 0, 0.25)) padding-box,
+    linear-gradient(90deg,
+      #c5cbd1 0%,
+      #ffffff 15%,
+      #ffffff 35%,
+      #dde2e6 45%,
+      #5b6269 56%,
+      #25292d 61%,
+      #8e969e 72%,
+      #ffffff 88%,
+      #c5cbd1 100%) padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background:
+    linear-gradient(90deg, #dde2e6 0%, #ffffff 25%, #ffffff 50%, #c5cbd1 75%, #eef2f5 100%) padding-box;
+}
+
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-button {
+  display: none;
+  background: var(--obsidian);
+}
+
+/* Firefox: only colour and width are stylable. Kept out of WebKit/Blink,
+   because Chrome ignores the custom scrollbar above once these are set */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--platinum) var(--obsidian);
+  }
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -329,7 +400,6 @@ em {
 
 /* Brushed-chrome hairline dividers */
 .site-header::after,
-.section-head::after,
 .hero-foot::before,
 .contact::before,
 .site-footer::before {
@@ -863,17 +933,6 @@ html.is-loading .line-in {
   padding: clamp(88px, 12vw, 160px) var(--gutter) 0;
 }
 
-.section-head {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 20px;
-}
-
-.section-head::after {
-  bottom: 0;
-}
-
 /* Scroll reveal */
 .reveal {
   opacity: 0;
@@ -901,14 +960,21 @@ html:not(.has-showcase) .showcase-pin {
   padding: clamp(88px, 12vw, 160px) var(--gutter) 0;
 }
 
-html:not(.has-showcase) .showcase-intro,
 html:not(.has-showcase) .showcase-stage,
-html:not(.has-showcase) .showcase-head p + p,
-html:not(.has-showcase) .showcase-progress {
+html:not(.has-showcase) .showcase-word:not(.about-word),
+html:not(.has-showcase) .showcase-intro-hint {
   display: none;
 }
 
-html:not(.has-showcase) .showcase .showcase-head,
+/* The intro title becomes the list's heading */
+html:not(.has-showcase) .showcase-intro {
+  position: relative;
+  inset: auto;
+  justify-items: start;
+  padding: 0;
+  text-align: left;
+}
+
 html:not(.has-showcase) .showcase .showcase-info {
   position: relative;
   inset: auto;
@@ -1097,24 +1163,80 @@ html:not(.has-showcase) .project-panel {
   color: var(--steel);
 }
 
-/* Section head with counter and progress line */
-.showcase-head {
-  position: absolute;
-  top: clamp(84px, 11vh, 108px);
-  left: var(--gutter);
-  right: var(--gutter);
+/* ---- Giant "PROJECTS" behind the laptop ----
+   Condensed display type filled with a pebbled (dimpled-metal) texture:
+   a hex grid of small domes, each with a highlight, over a dark base. The
+   texture takes the current project's colour (--word-tint, set by the
+   script and eased between projects); its size comes from --word-size. */
+@property --word-tint {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #e4e9ee;   /* chrome, until a project is on screen */
 }
 
-.showcase-progress {
+.showcase-word {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--platinum), var(--ice));
-  transform-origin: left center;
-  transform: scaleX(0);
-  z-index: 1;
+  left: 50%;
+  top: var(--word-top, 3vh);
+  z-index: -1;
+  margin: 0;
+  /* (centred with xPercent: -50 by the script, which also animates it) */
+  font-family: "Anton", Impact, "Arial Narrow", sans-serif;
+  font-weight: 400;
+  font-size: var(--word-size, 22vw);
+  line-height: 0.86;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  transform-origin: 50% 50%;
+  transition: --word-tint 0.9s var(--ease);
+}
+
+.showcase-word-dim {
+  display: block;
+  color: #1a1d20;
+}
+
+/* The title layer: polished chrome, laid exactly over the textured one */
+.showcase-word-chrome {
+  position: absolute;
+  inset: 0;
+  display: block;
+  filter: drop-shadow(0 0.02em 0.04em rgba(0, 0, 0, 0.7));
+}
+
+/* The intro's serif heading stays for screen readers and the plain
+   layout; here the chrome word takes its place (the script sets its
+   height so the label and hint frame the word) */
+.has-showcase .showcase-intro-title {
+  opacity: 0;
+  height: var(--intro-word-h, 1em);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .showcase-word-dim {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    background-image:
+      /* highlights on each dome (two offset grids = hex packing) */
+      radial-gradient(circle at 38% 32%, rgba(255, 255, 255, 0.16) 0 0.8px, rgba(255, 255, 255, 0) 1.5px),
+      radial-gradient(circle at 38% 32%, rgba(255, 255, 255, 0.16) 0 0.8px, rgba(255, 255, 255, 0) 1.5px),
+      /* the domes, in the project colour, darker at the rim */
+      radial-gradient(circle at 45% 40%, color-mix(in oklab, var(--word-tint) 52%, #000) 0 1.6px, color-mix(in oklab, var(--word-tint) 26%, #000) 2.4px, rgba(0, 0, 0, 0) 2.9px),
+      radial-gradient(circle at 45% 40%, color-mix(in oklab, var(--word-tint) 52%, #000) 0 1.6px, color-mix(in oklab, var(--word-tint) 26%, #000) 2.4px, rgba(0, 0, 0, 0) 2.9px),
+      /* dark base between the domes, lit at the top */
+      linear-gradient(180deg, color-mix(in oklab, var(--word-tint) 14%, #050505) 0%, #060707 100%);
+    background-size: 7px 6px, 7px 6px, 7px 6px, 7px 6px, 100% 100%;
+    background-position: 0 0, 3.5px 3px, 0 0, 3.5px 3px, 0 0;
+    background-repeat: repeat, repeat, repeat, repeat, no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* bright at the top, sinking into the dark toward the bottom */
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.55) 50%, rgba(0, 0, 0, 0.12) 100%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.55) 50%, rgba(0, 0, 0, 0.12) 100%);
+  }
 }
 
 /* Project info on the left, panels stacked in one grid cell */
@@ -1133,23 +1255,8 @@ html:not(.has-showcase) .project-panel {
   align-self: center;
 }
 
-.project-meta {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.project-meta span:first-child {
-  font-size: 0.85rem;
-}
-
-.project-meta span:last-child {
-  padding-left: 14px;
-  border-left: 1px solid var(--gunmetal);
-}
-
 .project-title {
-  margin: 18px 0 18px;
+  margin: 0 0 18px;
   font-family: var(--serif);
   font-weight: 400;
   font-size: clamp(2rem, 3.6vw, 4rem);
@@ -1208,10 +1315,6 @@ html:not(.has-showcase) .project-panel {
 }
 
 /* Phones and portrait tablets: laptop on top, info underneath */
-.showcase.is-portrait .showcase-head {
-  top: 76px;
-}
-
 .showcase.is-portrait .showcase-info {
   top: calc(var(--laptop-bottom, 50vh) + 8px);
   right: var(--gutter);
@@ -1262,6 +1365,13 @@ html:not(.has-showcase) .project-panel {
 html.lenis,
 html.lenis body {
   height: auto;
+}
+
+/* Lenis does the smoothing; the browser's own smooth scrolling (set on
+   html above, for when Lenis isn't running) would turn its instant jumps
+   into visible glides through the pinned sections */
+html.lenis {
+  scroll-behavior: auto;
 }
 
 .lenis.lenis-smooth {
@@ -1355,16 +1465,385 @@ html.lenis body {
   transform: translateY(-1px);
 }
 
+/* Plain form (no JavaScript / no GSAP): the render pieces stay hidden */
+html:not(.has-about) .about-word,
+.about-canvas,
+.about-sheen,
+.about-backdrop,
+.about-glow,
+.about-firelight,
+.about-firespill,
+.about-flash,
+.about-flash-bloom {
+  display: none;
+}
+
+/* ---- Scroll-driven Polaroid (js/about.js) ---- */
+.has-about #about {
+  padding: 0;
+  margin: 0;
+  background: var(--obsidian);
+}
+
+.has-about .about-pin {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  /* Cool blue-black base (the laptop's set is neutral graphite) */
+  background: linear-gradient(165deg, #0a1018 0%, #070a0f 40%, #050608 75%, var(--obsidian) 100%);
+}
+
+.has-about .about-grid {
+  display: block;
+  padding: 0;
+}
+
+/* The render's coordinate space (1920x1080), scaled and placed by the script */
+.has-about .about-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+/* Frames are cropped; the canvas sits where the crop came from */
+.has-about .about-canvas {
+  display: block;
+  position: absolute;
+  left: 256px;
+  top: 24px;
+  width: 1192px;
+  height: 1056px;
+}
+
+/* Portrait: mapped onto the Polaroid's photo area by a matrix3d. The
+   mask wipes it away from the bottom up as --burn rises (0% = whole) */
+.has-about .about-photo {
+  --burn: 0%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 460px;
+  height: 620px;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background: #2b2e31;
+  box-shadow: none;
+  transform-origin: 0 0;
+  overflow: hidden;
+  visibility: hidden;
+  -webkit-mask-image: linear-gradient(to top, transparent calc(var(--burn) - 14%), #000 var(--burn));
+  mask-image: linear-gradient(to top, transparent calc(var(--burn) - 14%), #000 var(--burn));
+}
+
+.has-about .about-photo img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+/* A faint print gloss, plus the one-time sheen that crosses it */
+.has-about .about-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 40%);
+  pointer-events: none;
+}
+
+.has-about .about-sheen {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg,
+      rgba(255, 255, 255, 0) 35%,
+      rgba(248, 250, 252, 0.28) 50%,
+      rgba(255, 255, 255, 0) 65%);
+  mix-blend-mode: screen;
+}
+
+/* ---- Studio set: an icy, blue-steel version of the laptop's sweep ----
+   A cool wall brightening toward a horizon, curving into a floor, with a
+   cold rim light from the top right. The key light (--key-x) follows the
+   subject: the camera while it rises, then the Polaroid as it flies left.
+   Cool on purpose, so the fire reads as a warm takeover. --horizon-y is
+   set by the script. */
+.has-about .about-backdrop {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.has-about .about-backdrop::before,
+.has-about .about-backdrop::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+/* Wall: cold rim light top right, a soft beam from above, and the key
+   light pooling toward the horizon behind the subject */
+.has-about .about-backdrop::before {
+  top: 0;
+  height: var(--horizon-y, 80%);
+  background:
+    radial-gradient(45% 60% at 90% 0%,
+      rgba(120, 160, 190, 0.16) 0%,
+      rgba(120, 160, 190, 0) 70%),
+    radial-gradient(40% 75% at var(--key-x, 50%) 0%,
+      rgba(169, 199, 216, 0.09) 0%,
+      rgba(169, 199, 216, 0) 70%),
+    radial-gradient(60% 115% at var(--key-x, 50%) 100%,
+      rgba(169, 199, 216, 0.4) 0%,
+      rgba(110, 140, 165, 0.22) 30%,
+      rgba(50, 68, 84, 0.1) 56%,
+      rgba(37, 50, 62, 0) 78%),
+    linear-gradient(180deg, rgba(8, 12, 17, 0) 35%, rgba(8, 12, 17, 0.65) 100%);
+}
+
+/* Floor: a crisp icy line at the horizon, a cool pool of light under the
+   subject, darkening toward the viewer */
+.has-about .about-backdrop::after {
+  top: var(--horizon-y, 80%);
+  bottom: 0;
+  background:
+    radial-gradient(56% 24px at var(--key-x, 50%) 0%, rgba(205, 225, 238, 0.26) 0%, rgba(205, 225, 238, 0) 100%),
+    radial-gradient(66% 160% at var(--key-x, 50%) 0%,
+      rgba(140, 170, 192, 0.3) 0%,
+      rgba(80, 105, 125, 0.14) 34%,
+      rgba(37, 50, 62, 0) 72%),
+    linear-gradient(180deg, rgba(8, 12, 17, 0.65) 0%, rgba(5, 5, 5, 0) 70%);
+}
+
+/* Phones: the horizon falls mid-screen, right where the text starts, so
+   the floor line is a soft glow instead of a crisp edge */
+.has-about .about.is-portrait .about-backdrop::after {
+  background:
+    radial-gradient(60% 70px at var(--key-x, 50%) 0%, rgba(205, 225, 238, 0.1) 0%, rgba(205, 225, 238, 0) 100%),
+    radial-gradient(70% 120% at var(--key-x, 50%) 0%,
+      rgba(140, 170, 192, 0.2) 0%,
+      rgba(80, 105, 125, 0.08) 34%,
+      rgba(37, 50, 62, 0) 72%),
+    linear-gradient(180deg, rgba(8, 12, 17, 0.5) 0%, rgba(5, 5, 5, 0) 70%);
+}
+
+/* Cool light behind the resting Polaroid. The script sets --polaroid-x/y/w */
+.has-about .about-glow {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(calc(var(--polaroid-w, 300px) * 1.5) calc(var(--polaroid-w, 300px) * 1.8) at var(--polaroid-x, 30%) var(--polaroid-y, 50%),
+      rgba(190, 214, 228, 0.14) 0%,
+      rgba(169, 199, 216, 0.05) 45%,
+      rgba(169, 199, 216, 0) 75%);
+}
+
+/* ---- Firelight ----
+   Lives in the stage (render pixels) behind the canvas, so it sits right
+   on the Polaroid at any screen size. The glow climbs with the flames (the
+   script moves it up); the spill stays on the floor. Both flicker. */
+.has-about .about-firelight,
+.has-about .about-firespill {
+  display: block;
+  position: absolute;
+  left: 518px;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.has-about .about-firelight {
+  top: 760px;
+}
+
+.has-about .about-firespill {
+  top: 950px;   /* the studio horizon (HORIZON_Y in the script) */
+}
+
+.has-about .about-firelight::before,
+.has-about .about-firespill::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+
+.has-about .about-firelight::before {
+  width: 1500px;
+  height: 1300px;
+  background: radial-gradient(closest-side,
+      rgba(255, 166, 80, 0.55) 0%,
+      rgba(255, 124, 44, 0.3) 22%,
+      rgba(222, 82, 26, 0.12) 48%,
+      rgba(180, 60, 20, 0.04) 72%,
+      rgba(180, 60, 20, 0) 100%);
+  animation: fire-flicker 1.4s ease-in-out infinite;
+}
+
+.has-about .about-firespill::before {
+  width: 1800px;
+  height: 320px;
+  background: radial-gradient(closest-side,
+      rgba(255, 140, 56, 0.45) 0%,
+      rgba(232, 92, 30, 0.16) 40%,
+      rgba(200, 70, 20, 0) 100%);
+  animation: fire-flicker 1.1s ease-in-out -0.4s infinite;
+}
+
+/* Uneven brightening and dimming, like a live flame */
+@keyframes fire-flicker {
+  0% { opacity: 0.86; transform: translate(-50%, -50%) scale(1); }
+  18% { opacity: 0.7; transform: translate(-50%, -50%) scale(0.97); }
+  37% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); }
+  55% { opacity: 0.78; transform: translate(-50%, -50%) scale(0.99); }
+  74% { opacity: 0.95; transform: translate(-50%, -50%) scale(1.02); }
+  100% { opacity: 0.86; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Camera flash (played by the script when the shutter clicks).
+   Bloom + streak sit on the flash window in render pixels, so they move
+   with the camera; the wash lights the whole room from that point. */
+.has-about .about-flash-bloom {
+  display: block;
+  position: absolute;
+  left: 990px;
+  top: 805px;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.has-about .about-flash-bloom::before,
+.has-about .about-flash-bloom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.has-about .about-flash-bloom::before {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0.95) 7%,
+      rgba(232, 240, 248, 0.45) 22%,
+      rgba(210, 222, 234, 0.12) 45%,
+      rgba(210, 222, 234, 0) 70%);
+}
+
+/* Thin anamorphic streak, cooled toward icy silver */
+.has-about .about-flash-bloom::after {
+  width: 1600px;
+  height: 22px;
+  background: radial-gradient(50% 50% at 50% 50%,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(214, 232, 246, 0.5) 25%,
+      rgba(169, 199, 216, 0.12) 55%,
+      rgba(169, 199, 216, 0) 75%);
+}
+
+.has-about .about-flash {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  background: radial-gradient(140vmax 140vmax at var(--flash-x, 50%) var(--flash-y, 75%),
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(240, 245, 250, 0.6) 12%,
+      rgba(220, 228, 236, 0.22) 30%,
+      rgba(220, 228, 236, 0.06) 55%,
+      rgba(220, 228, 236, 0) 75%);
+}
+
+/* Text: right of the Polaroid, centred on it */
+.has-about .about-text {
+  position: absolute;
+  left: var(--copy-left, 55%);
+  top: var(--copy-mid, 50%);
+  width: var(--copy-width, 40%);
+  transform: translateY(-50%);
+}
+
+/* Phones/tablets: text under the Polaroid */
+.has-about .about.is-portrait .about-text {
+  left: var(--gutter);
+  right: var(--gutter);
+  top: var(--copy-top, 55%);
+  width: auto;
+  transform: none;
+}
+
+.has-about .about.is-portrait .about-lead {
+  font-size: clamp(1.35rem, 5.6vw, 1.9rem);
+  margin-bottom: 12px;
+}
+
+.has-about .about.is-portrait .about-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.has-about .about.is-portrait .skills {
+  margin-top: 18px;
+  gap: 6px;
+}
+
+.has-about .about.is-portrait .skills li {
+  padding: 5px 12px;
+}
+
+/* Reduced motion: not pinned; the section grows to fit on phones */
+.has-about .about.is-static .about-pin {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
 /* =========================================================
    Contact
    ========================================================= */
+/* Centred closing scene: status, question and the magnetic button stacked
+   in the middle, with a low spotlight under them */
 .contact {
   position: relative;
-  padding-bottom: clamp(88px, 10vw, 140px);
-  /* A low spotlight under "Let's talk" and a graphite wash from the right */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* a full screen, so at the bottom of the page the liquid fills
+     everything above the footer */
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: clamp(72px, 9vw, 120px);
+  padding-bottom: clamp(72px, 9vw, 120px);
+  text-align: center;
   background:
-    radial-gradient(55% 60% at 12% 100%, rgba(197, 203, 209, 0.07) 0%, rgba(197, 203, 209, 0) 70%),
-    radial-gradient(45% 60% at 100% 30%, rgba(17, 19, 21, 1) 0%, rgba(17, 19, 21, 0) 70%),
+    radial-gradient(50% 55% at 50% 100%, rgba(197, 203, 209, 0.08) 0%, rgba(197, 203, 209, 0) 70%),
+    radial-gradient(40% 45% at 50% 55%, rgba(17, 19, 21, 1) 0%, rgba(17, 19, 21, 0) 70%),
     var(--obsidian);
 }
 
@@ -1374,12 +1853,110 @@ html.lenis body {
 }
 
 .contact-kicker {
-  margin: clamp(32px, 5vw, 64px) 0 10px;
+  margin: clamp(22px, 3vw, 34px) 0 10px;
   color: var(--steel);
+  /* stays readable over the liquid's highlights */
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Liquid chrome backdrop (js/liquid.js): a WebGL canvas behind the
+   content; the section's own background stays as the fallback */
+.contact.has-liquid {
+  isolation: isolate;
+}
+
+.contact-liquid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Availability pill: a live green dot that pulses softly */
+.contact-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 8px 16px 8px 13px;
+  border: 1px solid var(--gunmetal);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(37, 41, 45, 0.55), rgba(17, 19, 21, 0.55));
+  box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.05);
+  font-family: var(--mono, "JetBrains Mono", monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--platinum);
+}
+
+.contact-status-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #5ee08f;
+  box-shadow: 0 0 8px rgba(94, 224, 143, 0.7);
+}
+
+.contact-status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid #5ee08f;
+  animation: status-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes status-ping {
+  0% { transform: scale(1); opacity: 0.8; }
+  70%, 100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* The cursor follower for the contact section (js/contact.js): a thin
+   chrome ring that trails the cursor and is pulled onto the orb */
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 50%;
+  border: 1px solid rgba(197, 203, 209, 0.55);
+  box-shadow: 0 0 12px rgba(197, 203, 209, 0.12), inset 0 0 8px rgba(197, 203, 209, 0.08);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+
+.cursor-ring.is-on {
+  opacity: 1;
+}
+
+.cursor-ring.is-locked {
+  border-color: rgba(248, 250, 252, 0.85);
+}
+
+/* Docked on the orb while the mouse rests: a slow chrome glow */
+.cursor-ring.is-docked {
+  border-color: rgba(248, 250, 252, 0.9);
+  animation: ring-breathe 1.8s ease-in-out infinite;
+}
+
+@keyframes ring-breathe {
+  0%, 100% { box-shadow: 0 0 10px rgba(197, 203, 209, 0.15), inset 0 0 8px rgba(197, 203, 209, 0.08); }
+  50% { box-shadow: 0 0 26px rgba(214, 226, 236, 0.45), inset 0 0 14px rgba(214, 226, 236, 0.22); }
 }
 
 .contact-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22em;
   background-color: transparent;
   border: 0;
   padding: 0;
@@ -1392,15 +1969,131 @@ html.lenis body {
   position: relative;
 }
 
-.contact-link span {
+.contact-text {
   display: inline-block;
-  font-size: 0.5em;
-  vertical-align: top;
-  transition: transform 0.5s var(--ease);
 }
 
-.contact-link:hover span {
-  transform: translate(8px, -8px);
+/* Chrome orb: a graphite disc in a polished chrome ring, lit from the top
+   left. (Its position and scale are driven by js/contact.js, so it has no
+   transform transition of its own.) */
+.contact-orb {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 0.78em;
+  height: 0.78em;
+  border-radius: 50%;
+  border: max(1.5px, 0.022em) solid transparent;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 58%) padding-box,
+    linear-gradient(180deg, var(--graphite), var(--obsidian)) padding-box,
+    var(--chrome-gradient) border-box;
+  box-shadow: 0 0.06em 0.18em rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Fill and arrows are clipped to the disc; the waves spread outside it */
+.contact-orb-inner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* Sonar: two chrome rings pulse out of the orb every few seconds */
+.contact-orb-wave {
+  position: absolute;
+  inset: calc(-1 * max(1.5px, 0.022em));
+  border-radius: 50%;
+  border: 1px solid rgba(214, 222, 229, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  animation: orb-wave 3.6s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+}
+
+.contact-orb-wave + .contact-orb-wave {
+  animation-delay: 0.45s;
+}
+
+@keyframes orb-wave {
+  0% { transform: scale(1); opacity: 0.7; }
+  55%, 100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* On hover the disc floods with chrome from the centre */
+.contact-orb-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* Bright brushed chrome without the dark horizon band, so the dark arrow
+     stays readable on it */
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(160deg, #ffffff 0%, #e6eaee 35%, #c5cbd1 62%, #eef2f5 82%, #aab2ba 100%);
+  transform: scale(0);
+  transition: transform 0.6s var(--ease);
+}
+
+/* Two arrows: one rests in the orb, the other waits bottom-left. On hover
+   the first flies out top-right as the second slides in */
+.contact-orb-arrow {
+  position: absolute;
+  width: 0.34em;
+  height: 0.34em;
+  fill: none;
+  stroke: var(--ice);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.55s var(--ease), stroke 0.4s var(--ease);
+}
+
+.contact-orb-arrow.is-next {
+  transform: translate(-170%, 170%);
+}
+
+/* Idle hint: every few seconds the arrow flies out top-right and slides
+   back in from bottom-left. Hover replaces it with the real swap. */
+.contact-orb-arrow:not(.is-next) {
+  animation: arrow-hint 4.8s var(--ease) 1.2s infinite;
+}
+
+@keyframes arrow-hint {
+  0%, 72% { transform: translate(0, 0); }
+  80% { transform: translate(170%, -170%); }
+  80.01% { transform: translate(-170%, 170%); }
+  92%, 100% { transform: translate(0, 0); }
+}
+
+.contact-link:hover .contact-orb-arrow,
+.contact-link:focus-visible .contact-orb-arrow {
+  animation: none;
+}
+
+.contact-link:hover .contact-orb-fill,
+.contact-link:focus-visible .contact-orb-fill {
+  transform: scale(1);
+}
+
+.contact-link:hover .contact-orb-arrow,
+.contact-link:focus-visible .contact-orb-arrow {
+  transform: translate(170%, -170%);
+  stroke: var(--obsidian);
+}
+
+.contact-link:hover .contact-orb-arrow.is-next,
+.contact-link:focus-visible .contact-orb-arrow.is-next {
+  transform: translate(0, 0);
+}
+
+.contact-link:focus-visible {
+  outline: none;
+}
+
+.contact-link:focus-visible .contact-orb {
+  box-shadow: 0 0 0 3px rgba(169, 199, 216, 0.6), 0 0.06em 0.18em rgba(0, 0, 0, 0.65);
 }
 
 /* =========================================================
@@ -1568,10 +2261,14 @@ html.lenis body {
 /* =========================================================
    Footer
    ========================================================= */
+/* Three columns so the copyright stays centred with "Back to top" on the
+   right (the empty left column balances it) */
 .site-footer {
   position: relative;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
   padding: 28px var(--gutter);
   background: var(--graphite);
 }
@@ -1579,6 +2276,70 @@ html.lenis body {
 .site-footer::before {
   top: 0;
   opacity: 0.3;
+}
+
+.footer-copy {
+  grid-column: 2;
+}
+
+.footer-top {
+  grid-column: 3;
+  justify-self: end;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.4s var(--ease);
+}
+
+.footer-top span {
+  display: inline-block;
+  transition: transform 0.5s var(--ease);
+}
+
+/* Platinum underline grows from the right; the arrow lifts */
+.footer-top::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: var(--platinum);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease);
+}
+
+.footer-top:hover,
+.footer-top:focus-visible {
+  color: var(--ice);
+}
+
+.footer-top:hover::after,
+.footer-top:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.footer-top:hover span,
+.footer-top:focus-visible span {
+  transform: translateY(-3px);
+}
+
+/* Phones: stacked and centred */
+@media (max-width: 560px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 12px;
+  }
+
+  .footer-copy,
+  .footer-top {
+    grid-column: 1;
+    justify-self: center;
+  }
 }
 
 /* =========================================================

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500&family=Anton&family=JetBrains+Mono:wght@400&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script>
@@ -107,10 +107,13 @@
           <p class="showcase-intro-hint label">Scroll to open</p>
         </div>
 
-        <div class="section-head showcase-head">
-          <p class="label chrome-accent">Selected projects</p>
-          <p class="label"><span class="showcase-count chrome-accent">01</span> / 04</p>
-          <span class="showcase-progress" aria-hidden="true"></span>
+        <!-- One "PROJECTS" for the whole section (js/showcase.js): it starts
+             as the bright chrome title in the middle, then grows into the
+             giant textured word behind the laptop, tinted per project.
+             Two layers cross-fade: chrome (title) and pebbled (background). -->
+        <div class="showcase-word" aria-hidden="true">
+          <span class="showcase-word-dim">Projects</span>
+          <span class="showcase-word-chrome chrome-text">Projects</span>
         </div>
 
         <!-- The render and the HTML screen share one coordinate space -->
@@ -136,7 +139,6 @@
 
         <div class="showcase-info">
           <article class="project-panel">
-            <p class="label project-meta"><span class="chrome-accent">01</span><span>Product landing page</span></p>
             <h3 class="project-title"><span class="chrome-heading">Device Specification Showcase</span></h3>
             <p class="project-desc">A product page for the NVIDIA RTX 5090, with a cinematic hero, a responsive
               navbar and spec sections. My first full Bootstrap layout.</p>
@@ -146,7 +148,6 @@
             <a class="project-link chrome-rim label" href="https://mcanillas.github.io/device-specs/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗&#xFE0E;</span></a>
           </article>
           <article class="project-panel">
-            <p class="label project-meta"><span class="chrome-accent">02</span><span>Destination showcase</span></p>
             <h3 class="project-title"><span class="chrome-heading">Mayon Showcase</span></h3>
             <p class="project-desc">A travel showcase for Mayon Volcano, the world's most perfect cone: its history
               and legend, a filterable gallery, carousels and a night view.</p>
@@ -156,7 +157,6 @@
             <a class="project-link chrome-rim label" href="https://mcanillas.github.io/showcase-mayon/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗&#xFE0E;</span></a>
           </article>
           <article class="project-panel">
-            <p class="label project-meta"><span class="chrome-accent">03</span><span>Image gallery</span></p>
             <h3 class="project-title"><span class="chrome-heading">Initial D Car Gallery</span></h3>
             <p class="project-desc">A retro car gallery with an arcade-style intro and a video hero with sound,
               where Bootstrap cards open each car in a modal.</p>
@@ -166,7 +166,6 @@
             <a class="project-link chrome-rim label" href="https://mcanillas.github.io/gallery-showcase/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗&#xFE0E;</span></a>
           </article>
           <article class="project-panel">
-            <p class="label project-meta"><span class="chrome-accent">04</span><span>API-driven web app</span></p>
             <h3 class="project-title"><span class="chrome-heading">Bob's Burgers API Gallery</span></h3>
             <p class="project-desc">A character booth that fetches all 50 Bob's Burgers characters live from a
               public API, with zoomable cards and a 3D burger built in Three.js.</p>
@@ -180,44 +179,80 @@
       </div>
     </section>
 
-    <!-- About -->
-    <section class="section" id="about">
-      <div class="section-head reveal">
-        <p class="label chrome-accent">About</p>
-      </div>
-      <div class="about-grid">
-        <figure class="about-photo">
-          <img src="images/mpic.png" alt="Portrait of Marc Canillas" loading="lazy">
-        </figure>
-        <div class="about-text reveal">
-          <p class="about-lead">
-            I'm Marc — a developer who cares about the details that make a website feel right.
-          </p>
-          <p>
-            I'm learning front-end development by building real projects: from product showcases
-            to image galleries powered by public APIs. Each one is a step toward writing cleaner,
-            faster and more accessible interfaces.
-          </p>
-          <ul class="skills label">
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-            <li>Bootstrap</li>
-            <li>REST APIs</li>
-            <li>Git &amp; GitHub</li>
-          </ul>
+    <!-- About: scroll-driven Polaroid (js/about.js)
+         Frames: images/about/lg/frame_0001-0316.webp (desktop)
+                 images/about/sm/frame_0001-0316.webp (phones)
+         An instant camera prints a Polaroid; my portrait develops in its
+         photo area while the text arrives, then the print burns away.
+         Without JavaScript this is a plain photo + text layout. -->
+    <section class="section about" id="about" aria-label="About">
+      <div class="about-pin">
+        <div class="about-backdrop" aria-hidden="true"></div>
+        <div class="about-glow" aria-hidden="true"></div>
+        <!-- "WHO AM I?": the same two-layer word as "PROJECTS" (js/about.js).
+             Chrome title in the middle, grows into the backdrop as the camera
+             rises, turns to fire when the Polaroid ignites. -->
+        <div class="showcase-word about-word" aria-hidden="true">
+          <span class="showcase-word-dim">Who am I?</span>
+          <span class="showcase-word-chrome chrome-text">Who am I?</span>
+        </div>
+        <div class="about-flash" aria-hidden="true"></div>
+        <div class="about-grid">
+          <!-- The render and the portrait share one 1920x1080 coordinate space -->
+          <div class="about-stage">
+            <div class="about-firespill" aria-hidden="true"></div>
+            <div class="about-firelight" aria-hidden="true"></div>
+            <canvas class="about-canvas" aria-hidden="true"></canvas>
+            <div class="about-flash-bloom" aria-hidden="true"></div>
+            <figure class="about-photo">
+              <img src="images/mpic.png" alt="Portrait of Marc Canillas" decoding="async">
+              <span class="about-sheen" aria-hidden="true"></span>
+            </figure>
+          </div>
+          <div class="about-text">
+            <p class="about-lead">
+              I'm Marc — a developer who cares about the details that make a website feel right.
+            </p>
+            <p class="about-body">
+              I'm learning front-end development by building real projects: from product showcases
+              to image galleries powered by public APIs. Each one is a step toward writing cleaner,
+              faster and more accessible interfaces.
+            </p>
+            <ul class="skills label">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>Bootstrap</li>
+              <li>REST APIs</li>
+              <li>Git &amp; GitHub</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Contact -->
-    <section class="section contact" id="contact">
-      <div class="section-head reveal">
-        <p class="label chrome-accent">Contact</p>
-      </div>
+    <section class="section contact" id="contact" aria-label="Contact">
+      <!-- Availability: edit the text when your status changes -->
+      <p class="contact-status reveal">
+        <span class="contact-status-dot" aria-hidden="true"></span>
+        Open to OJT &amp; internships
+      </p>
       <p class="contact-kicker reveal">Have a project in mind?</p>
-      <button class="contact-link reveal chrome-heading chrome-sweep" type="button" aria-haspopup="dialog" aria-controls="contact-dialog">
-        Let's <em>talk</em> <span class="chrome-heading" aria-hidden="true">↗&#xFE0E;</span>
+      <!-- Magnetic chrome button (js/contact.js): the words lean toward the
+           cursor, the orb is pulled harder; on hover the orb fills with
+           chrome and the arrow flies out as a new one slides in -->
+      <button class="contact-link reveal" type="button" aria-haspopup="dialog" aria-controls="contact-dialog">
+        <span class="contact-text chrome-heading chrome-sweep">Let's <em>talk</em></span>
+        <span class="contact-orb" aria-hidden="true">
+          <span class="contact-orb-wave"></span>
+          <span class="contact-orb-wave"></span>
+          <span class="contact-orb-inner">
+            <span class="contact-orb-fill"></span>
+            <svg class="contact-orb-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" /></svg>
+            <svg class="contact-orb-arrow is-next" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" /></svg>
+          </span>
+        </span>
       </button>
     </section>
   </main>
@@ -258,7 +293,8 @@
   </dialog>
 
   <footer class="site-footer label">
-    <span>© 2026 Marc Canillas</span>
+    <span class="footer-copy">© 2026 Marc Canillas</span>
+    <a href="#top" class="footer-top">Back to top <span aria-hidden="true">↑&#xFE0E;</span></a>
   </footer>
 
   <script>
@@ -485,6 +521,9 @@
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
   <script src="js/smooth-scroll.js" defer></script>
   <script src="js/showcase.js" defer></script>
+  <script src="js/about.js" defer></script>
+  <script src="js/contact.js" defer></script>
+  <script src="js/liquid.js" defer></script>
 </body>
 
 </html>

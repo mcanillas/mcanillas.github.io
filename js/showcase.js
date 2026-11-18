@@ -66,11 +66,44 @@
   const ambients = [...section.querySelectorAll('.showcase-ambient span')];  // screen light, per project
   const panels = [...section.querySelectorAll('.project-panel')];
   const intro = section.querySelector('.showcase-intro');
-  const head = section.querySelector('.showcase-head');
+  const word = section.querySelector('.showcase-word');   // "PROJECTS": title, then backdrop
+  const wordDim = word.querySelector('.showcase-word-dim');
+  const wordChrome = word.querySelector('.showcase-word-chrome');
+  const introTitle = intro.querySelector('.showcase-intro-title');
   const glow = section.querySelector('.showcase-glow');
-  const progress = section.querySelector('.showcase-progress');
-  const counter = section.querySelector('.showcase-count');
   const PROJECTS = panels.length;
+  // Each project's colour (R G B), taken from its screen-light tint
+  const tints = ambients.map((a) => `rgb(${a.style.getPropertyValue('--c').trim()})`);
+
+  // Size the word to span the screen (it's measured once at a known size,
+  // then scaled), but never taller than ~38% of the screen. Its resting
+  // place is the top of the screen; it starts smaller, in the middle, as
+  // the section's title (framed by the intro's label and hint).
+  let wordRatio = 0;   // rendered width per px of font-size
+  const wordStart = { scale: 0.45, y: 0 };
+  const fitWord = (vw, vh, gutter) => {
+    if (!wordRatio) {
+      word.style.setProperty('--word-size', '100px');
+      wordRatio = word.offsetWidth / 100;
+      if (!wordRatio) return;
+    }
+    const size = Math.min((vw - 2 * gutter) / wordRatio, (vh * 0.38) / 0.86);
+    const top = Math.max(16, vh * 0.04);
+    section.style.setProperty('--word-size', `${size}px`);
+    word.style.removeProperty('--word-size');
+    section.style.setProperty('--word-top', `${top}px`);
+    // As a title: about the old serif title's width (wider on phones)
+    const width = size * wordRatio;
+    const height = size * 0.86;
+    wordStart.scale = Math.min(1, (isPortrait ? vw * 0.74 : Math.min(vw * 0.4, 680)) / width);
+    // Reserve the title's height in the intro, then centre the word on it
+    section.style.setProperty('--intro-word-h', `${height * wordStart.scale}px`);
+    const titleMid = introTitle.offsetTop + introTitle.offsetHeight / 2;
+    wordStart.y = titleMid - (top + height / 2);
+  };
+  // Re-measure once the display font has loaded (and re-read the timeline's
+  // start values, which depend on it)
+  if (document.fonts) document.fonts.load('100px Anton').then(() => { wordRatio = 0; ScrollTrigger.refresh(); }).catch(() => {});
 
   // ---------- Layout: scale and place the render for this viewport ----------
   let isPortrait = false;
@@ -82,9 +115,10 @@
     const boxH = OPEN_BOX.y1 - OPEN_BOX.y0;
     isPortrait = vw < 820 || vw / vh < 1.1;
     section.classList.toggle('is-portrait', isPortrait);
-    // The open laptop must stay clear of the section head (label, counter
-    // and progress line), so measure where the head ends
-    const headBottom = head.offsetTop + head.offsetHeight;
+    fitWord(vw, vh, gutter);
+    // Top margin above the laptop (where the old section head ended, so
+    // the laptop keeps its size and place)
+    const headBottom = (isPortrait ? 76 : Math.min(108, Math.max(84, vh * 0.11))) + 39;
     let s, tx, ty;
     if (!isPortrait) {
       // Laptop on the right, info on the left; the laptop fills the space
@@ -256,13 +290,23 @@
     screen.style.visibility = on ? 'visible' : 'hidden';
   };
 
-  // ---------- Counter + progress ----------
+  // ---------- Active project (focusable panel) ----------
   let activeProject = -1;
   const setActive = (i) => {
     if (i === activeProject) return;
     activeProject = i;
-    counter.textContent = String(i + 1).padStart(2, '0');
     panels.forEach((p, k) => p.toggleAttribute('inert', k !== i));
+  };
+
+  // ---------- Word colour ----------
+  // Plain chrome while the laptop arrives and leaves; the current project's
+  // colour only while its picture is on the screen (eased by CSS)
+  const CHROME_TINT = '#e4e9ee';
+  let wordTint = null;
+  const setWordTint = (c) => {
+    if (c === wordTint) return;
+    wordTint = c;
+    section.style.setProperty('--word-tint', c);
   };
 
   // ---------- The master timeline ----------
@@ -278,7 +322,11 @@
     paint(f);
     updateScreen(f);
     const t = tl.time();
-    setActive(Math.min(PROJECTS - 1, Math.max(0, Math.floor((t - projectsStart + 0.15) / T_PROJECT))));
+    const active = Math.min(PROJECTS - 1, Math.max(0, Math.floor((t - projectsStart + 0.15) / T_PROJECT)));
+    setActive(active);
+    // The screen lights up at T_OPEN; the last project leaves at projectsEnd
+    const previewing = t >= T_OPEN && t < projectsEnd + T_HIDE * 0.5;
+    setWordTint(previewing ? (tints[active] || CHROME_TINT) : CHROME_TINT);
   };
 
   const tl = gsap.timeline({
@@ -299,8 +347,15 @@
   tl.to(state, { frame: OPEN_FRAME, duration: T_OPEN }, 0);
   // Intro title lifts away as the laptop drops through it
   tl.fromTo(intro, { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: -80, duration: 0.45, ease: 'power1.in' }, 0.1);
-  // Section head and floor light arrive as the laptop settles on the right
-  tl.fromTo(head, { autoAlpha: 0, y: -12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 1.0);
+  // The giant word rises in behind as the intro title lifts away, and the
+  // floor light arrives as the laptop settles on the right
+  // "PROJECTS" starts as the chrome title, then grows up into the backdrop:
+  // the chrome layer fades as the pebbled texture takes over
+  tl.fromTo(word,
+    { y: () => wordStart.y, scale: () => wordStart.scale },
+    { y: 0, scale: 1, duration: 1.05, ease: 'power2.inOut' }, 0.05);
+  tl.fromTo(wordDim, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: 'power1.inOut' }, 0.35);
+  tl.fromTo(wordChrome, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.6, ease: 'power1.inOut' }, 0.5);
   tl.fromTo(glow, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.8);
   // Once the lid has stopped: the screen lights up and the first project's
   // info arrives, together
@@ -309,7 +364,6 @@
   tl.fromTo(panels[0], { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: T_REVEAL, ease: 'power2.out' }, T_OPEN);
 
   // Phase 4: the showcase. Laptop holds still; info and screen change together
-  tl.fromTo(progress, { scaleX: 0 }, { scaleX: 1, duration: PROJECTS * T_PROJECT }, projectsStart);
   for (let i = 1; i < PROJECTS; i++) {
     const t = projectsStart + i * T_PROJECT;
     tl.to(panels[i - 1], { autoAlpha: 0, y: -30, duration: 0.28, ease: 'power2.in' }, t - 0.3);
@@ -332,9 +386,10 @@
   // immediateRender:false keeps it from touching the frame until it starts)
   tl.fromTo(state, { frame: CLOSE_FRAME }, { frame: FRAME_COUNT, duration: T_CLOSE, immediateRender: false }, closeStart);
   tl.to(glow, { autoAlpha: 0, duration: 0.4 }, closeStart + 0.3);
-  tl.to(head, { autoAlpha: 0, y: -12, duration: 0.3 }, closeStart + 0.9);
+  tl.to(word, { autoAlpha: 0, y: -40, duration: 0.5, ease: 'power1.in' }, closeStart + 0.8);
 
   // ---------- Start ----------
+  gsap.set(word, { xPercent: -50 });
   gsap.set(shots.slice(1), { autoAlpha: 0 });
   gsap.set(panels.slice(1), { autoAlpha: 0 });
   setActive(0);
