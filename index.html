@@ -13,9 +13,50 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script>
+    // Preloader: shows the chrome monogram until fonts and scripts are ready
+    // (at least MIN ms so the shine can play, at most MAX ms), then lifts
+    // away and lets the hero animation start. Skipped for reduced motion.
+    (function () {
+      var root = document.documentElement;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      root.classList.add('is-loading');
+      var start = Date.now(), MIN = 1300, MAX = 4000, done = false;
+
+      function finish() {
+        if (done) return;
+        done = true;
+        setTimeout(function () {
+          var el = document.querySelector('.preloader');
+          if (!el) { root.classList.remove('is-loading'); return; }
+          el.classList.add('is-done');              // line completes
+          setTimeout(function () {
+            el.classList.add('is-leaving');         // screen slides up
+            root.classList.remove('is-loading');    // hero animation starts
+            document.dispatchEvent(new Event('preloader:done'));
+            setTimeout(function () { el.remove(); }, 1100);
+          }, 350);
+        }, Math.max(0, MIN - (Date.now() - start)));
+      }
+
+      function ready() {
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(finish, finish);
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready);
+      else ready();
+      setTimeout(finish, MAX);
+    })();
+  </script>
 </head>
 
 <body>
+  <div class="preloader" aria-hidden="true">
+    <div class="preloader-mark">
+      <img src="images/mclogo.png" alt="" width="56" height="56">
+    </div>
+    <div class="preloader-bar"><span></span></div>
+  </div>
+
   <header class="site-header">
     <a href="https://github.com/mcanillas" class="logo" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (opens in a new tab)">
       <img src="images/mclogo.png" alt="" width="36" height="36">

@@ -344,6 +344,168 @@ em {
 }
 
 /* =========================================================
+   Preloader: chrome monogram, a single shine, a filling silver
+   line, then the whole screen slides up (timed in index.html).
+   Hidden unless the script adds .is-loading, so the page still
+   shows if JavaScript is off.
+   ========================================================= */
+.preloader {
+  display: none;
+}
+
+.is-loading .preloader,
+.preloader.is-leaving {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 28px;
+  background: var(--obsidian);
+  touch-action: none;
+  transition: transform 1s var(--ease);
+}
+
+/* Platinum hairline along the bottom edge as the screen lifts */
+.preloader::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--chrome-line);
+  opacity: 0.4;
+}
+
+.preloader.is-leaving {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.preloader-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 1px solid var(--gunmetal);
+  background:
+    radial-gradient(circle at 30% 22%, rgba(197, 203, 209, 0.14), rgba(197, 203, 209, 0) 62%),
+    var(--graphite);
+  box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.07), 0 10px 30px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  /* backwards, not both: once done it lets go, so the exit transition works */
+  animation: preloader-in 0.8s var(--ease) backwards;
+}
+
+.preloader-mark img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+/* Chrome layer masked to the monogram; the glint crosses it once */
+.preloader-mark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  transform: translate(-50%, -50%);
+  background-image: var(--chrome-glint), var(--chrome-gradient);
+  background-size: 260% 100%, 100% 100%;
+  background-position: 0% 0, 0 0;
+  background-repeat: no-repeat;
+  -webkit-mask: url("images/mclogo.png") center / contain no-repeat;
+  mask: url("images/mclogo.png") center / contain no-repeat;
+  animation: preloader-shine 1.1s var(--ease) 0.35s both;
+}
+
+.preloader-bar {
+  position: relative;
+  width: 120px;
+  height: 1px;
+  background: var(--gunmetal);
+  overflow: hidden;
+}
+
+.preloader-bar span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(197, 203, 209, 0.2), var(--platinum), var(--ice));
+  transform-origin: left;
+  animation: preloader-fill 1.1s var(--ease) 0.15s both;
+}
+
+.preloader.is-done .preloader-bar span {
+  animation: preloader-finish 0.35s var(--ease) both;
+}
+
+/* Contents drift up and fade slightly ahead of the screen */
+.preloader-mark,
+.preloader-bar {
+  transition: opacity 0.5s var(--ease), transform 0.8s var(--ease);
+}
+
+.preloader.is-leaving .preloader-mark,
+.preloader.is-leaving .preloader-bar {
+  opacity: 0;
+  transform: translateY(-24px);
+}
+
+/* Hold the hero's rise-in until the preloader lifts: no animation while
+   covered, so it starts fresh the moment .is-loading is removed */
+html.is-loading .line-in {
+  animation: none !important;
+}
+
+@keyframes preloader-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes preloader-shine {
+  from {
+    background-position: 0% 0, 0 0;
+  }
+
+  to {
+    background-position: 100% 0, 0 0;
+  }
+}
+
+@keyframes preloader-fill {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(0.85);
+  }
+}
+
+@keyframes preloader-finish {
+  from {
+    transform: scaleX(0.85);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* =========================================================
    Header
    ========================================================= */
 .site-header {

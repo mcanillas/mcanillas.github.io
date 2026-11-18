@@ -13,6 +13,12 @@
   const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
   window.lenis = lenis;
 
+  // Hold scrolling while the preloader covers the page
+  if (document.documentElement.classList.contains('is-loading')) {
+    lenis.stop();
+    document.addEventListener('preloader:done', () => lenis.start(), { once: true });
+  }
+
   if (window.gsap && window.ScrollTrigger) {
     // One clock for both: GSAP's ticker drives Lenis, Lenis updates ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
