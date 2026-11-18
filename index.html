@@ -17,8 +17,8 @@
 
 <body>
   <header class="site-header">
-    <a href="#top" class="logo" aria-label="Back to top">
-      <img src="images/mclogo.png" alt="MC logo" width="36" height="36">
+    <a href="https://github.com/mcanillas" class="logo" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (opens in a new tab)">
+      <img src="images/mclogo.png" alt="" width="36" height="36">
     </a>
     <nav class="site-nav" aria-label="Main">
       <a href="#projects">Projects</a>
@@ -47,7 +47,7 @@
           An aspiring front-end developer crafting clean,
           thoughtful and responsive websites.
         </p>
-        <a href="#projects" class="scroll-cue label line-in chrome-accent" style="--d: 4">Scroll ↓</a>
+        <a href="#projects" class="scroll-cue label line-in chrome-accent" style="--d: 4">Scroll ↓&#xFE0E;</a>
       </div>
     </section>
 
@@ -102,7 +102,7 @@
             <ul class="project-tech label">
               <li>HTML</li><li>CSS</li><li>Bootstrap 5</li>
             </ul>
-            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/device-specs/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗</span></a>
+            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/device-specs/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗&#xFE0E;</span></a>
           </article>
           <article class="project-panel">
             <p class="label project-meta"><span class="chrome-accent">02</span><span>Destination showcase</span></p>
@@ -112,7 +112,7 @@
             <ul class="project-tech label">
               <li>HTML</li><li>CSS</li><li>Bootstrap 5</li><li>JavaScript</li>
             </ul>
-            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/showcase-mayon/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗</span></a>
+            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/showcase-mayon/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗&#xFE0E;</span></a>
           </article>
           <article class="project-panel">
             <p class="label project-meta"><span class="chrome-accent">03</span><span>Image gallery</span></p>
@@ -122,7 +122,7 @@
             <ul class="project-tech label">
               <li>HTML</li><li>CSS</li><li>Bootstrap 5</li><li>JavaScript</li>
             </ul>
-            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/gallery-showcase/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗</span></a>
+            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/gallery-showcase/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗&#xFE0E;</span></a>
           </article>
           <article class="project-panel">
             <p class="label project-meta"><span class="chrome-accent">04</span><span>API-driven web app</span></p>
@@ -132,7 +132,7 @@
             <ul class="project-tech label">
               <li>JavaScript</li><li>Fetch API</li><li>Bootstrap 5</li><li>Three.js</li>
             </ul>
-            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/apicall-gallery/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗</span></a>
+            <a class="project-link chrome-rim label" href="https://mcanillas.github.io/apicall-gallery/" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗&#xFE0E;</span></a>
           </article>
         </div>
 
@@ -176,7 +176,7 @@
       </div>
       <p class="contact-kicker reveal">Have a project in mind?</p>
       <button class="contact-link reveal chrome-heading chrome-sweep" type="button" aria-haspopup="dialog" aria-controls="contact-dialog">
-        Let's <em>talk</em> <span class="chrome-heading" aria-hidden="true">↗</span>
+        Let's <em>talk</em> <span class="chrome-heading" aria-hidden="true">↗&#xFE0E;</span>
       </button>
     </section>
   </main>
@@ -193,7 +193,7 @@
         <a href="https://github.com/mcanillas" target="_blank" rel="noopener noreferrer">
           <span class="label">GitHub</span>
           <span class="option-value">@mcanillas</span>
-          <span class="option-arrow chrome-accent" aria-hidden="true">↗</span>
+          <span class="option-arrow chrome-accent" aria-hidden="true">↗&#xFE0E;</span>
         </a>
       </li>
       <li>
@@ -201,7 +201,7 @@
         <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" rel="noopener noreferrer">
           <span class="label">Instagram</span>
           <span class="option-value">@YOUR_INSTAGRAM</span>
-          <span class="option-arrow chrome-accent" aria-hidden="true">↗</span>
+          <span class="option-arrow chrome-accent" aria-hidden="true">↗&#xFE0E;</span>
         </a>
       </li>
       <li>
@@ -209,7 +209,7 @@
         <a href="mailto:you@example.com">
           <span class="label">Email</span>
           <span class="option-value">you@example.com</span>
-          <span class="option-arrow chrome-accent" aria-hidden="true">↗</span>
+          <span class="option-arrow chrome-accent" aria-hidden="true">↗&#xFE0E;</span>
         </a>
         <button class="copy-email label chrome-rim" type="button" data-email="you@example.com">Copy</button>
       </li>
@@ -218,18 +218,10 @@
 
   <footer class="site-footer label">
     <span>© 2026 Marc Canillas</span>
-    <a href="https://github.com/mcanillas" target="_blank" rel="noopener noreferrer">GitHub</a>
-    <a href="#top">Back to top ↑</a>
   </footer>
 
   <script>
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Header gains a graphite glass backdrop once the page scrolls
-    const siteHeader = document.querySelector('.site-header');
-    const updateHeader = () => siteHeader.classList.toggle('is-scrolled', window.scrollY > 8);
-    updateHeader();
-    window.addEventListener('scroll', updateHeader, { passive: true });
 
     // ===== Interactive chrome =====
     // 1. Sparkles blink at random spots on the chrome letters.
